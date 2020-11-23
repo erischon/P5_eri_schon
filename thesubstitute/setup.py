@@ -10,6 +10,7 @@ class Setup:
         self.mycursor = self.database.connection()
 
     def cat_choice(self):
+        """ """
         # requete dans la base pour savoir quels sont les catégories les plus utilisées
         # retourner une liste
 
@@ -20,7 +21,16 @@ class Setup:
 
         result = [[str(x) for x in tup] for tup in result]
         result = [''.join(i) for i in result]
-        cat_choice = [int(i) for i in result]
+        result = [int(i) for i in result]
+
+        cat_choice = []
+
+        for n in range(len(result)):
+            query = f"SELECT cat_id, cat_nom FROM categories WHERE cat_id = '{result[n]}'"
+            self.mycursor.execute(query)
+            result_name = self.mycursor.fetchall()
+            result_name = result_name[0]
+            cat_choice.append(result_name)
 
         return cat_choice
 
@@ -28,4 +38,4 @@ class Setup:
 if __name__ == "__main__":
     setup = Setup()
 
-print(setup.cat_choice())
+# print(setup.cat_choice())
