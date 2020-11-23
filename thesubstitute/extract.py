@@ -1,5 +1,6 @@
 import requests
-import json 
+import json
+
 
 class Extract:
     """ Extract data from OpenFoodFacts. """
@@ -14,7 +15,7 @@ class Extract:
             "tagtype_0": "countries",
             "tag_contains_0": "contains",
             "tag_0": "france",
-            "page_size": 20, 
+            "page_size": 20,
             "page": 1,
             "sort_by": "unique_scans_n",
             "fields": "generic_name_fr",
@@ -24,13 +25,16 @@ class Extract:
 
     def extract(self):
         """ I extract product from OpenFoodFacts """
-        request = requests.get(url = self.URL, params = self.PARAMS, headers = self.HEADERS) 
-        products = request.json() 
+        request = requests.get(url=self.URL, params=self.PARAMS, headers=self.HEADERS)
+        products = request.json()
 
         with open("off_data_extract.json", "w") as f:
             json.dump(products, f)
 
-        print(f"{len(products['products'])} produits ont été téléchargés dans le fichier.")
+        print(
+            f"{len(products['products'])} produits ont été téléchargés dans le fichier."
+        )
+
 
 if __name__ == "__main__":
     extract = Extract()
