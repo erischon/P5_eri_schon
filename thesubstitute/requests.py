@@ -15,12 +15,7 @@ class Requests:
         query = f"SELECT cat_id FROM prodcat GROUP BY cat_id ORDER BY COUNT(*) DESC LIMIT 10;"
 
         self.mycursor.execute(query)
-        result = self.mycursor.fetchall()
-
-        # Transform a list of tuple to a list of integer
-        result = [[str(x) for x in tup] for tup in result]
-        result = ["".join(i) for i in result]
-        result = [int(i) for i in result]
+        result = self.to_list_of_integer(self.mycursor.fetchall())
 
         cat_popular = []
 
@@ -40,7 +35,7 @@ class Requests:
 
         return cat_popular
 
-    def prod_in_cat(self, cat):
+    def product_list(self, cat):
         """ """
         # query = f"SELECT p.prod_id, p.prod_nom FROM produits p INNER JOIN prodcat pc ON pc.prod_id = p.prod_id;"
         query = f"SELECT prod_id FROM prodcat WHERE cat_id = '{cat}';"
@@ -67,9 +62,18 @@ class Requests:
 
         return prod_list
 
+    def to_list_of_integer(self, l_o_t):
+        """ Transform a list of tuple (l_o_t) to a list of integer (l_o_i) """
+
+        l_o_i = [[str(x) for x in tup] for tup in l_o_t]
+        l_o_i = ["".join(i) for i in l_o_i]
+        l_o_i = [int(i) for i in l_o_i]
+
+        return l_o_i
 
 
 if __name__ == "__main__":
     requests = Requests()
 
-    print(requests.prod_in_cat(11))
+    # print(requests.product_list(11))
+    print(requests.cat_popular())
