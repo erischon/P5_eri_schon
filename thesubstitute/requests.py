@@ -40,8 +40,36 @@ class Requests:
 
         return cat_popular
 
+    def prod_in_cat(self, cat):
+        """ """
+        # query = f"SELECT p.prod_id, p.prod_nom FROM produits p INNER JOIN prodcat pc ON pc.prod_id = p.prod_id;"
+        query = f"SELECT prod_id FROM prodcat WHERE cat_id = '{cat}';"
+
+        self.mycursor.execute(query)
+        result = self.mycursor.fetchall()
+
+        result = [[str(x) for x in tup] for tup in result]
+        result = ["".join(i) for i in result]
+        result = [int(i) for i in result]
+
+        prod_list = []
+
+        for n in range(len(result)):
+            query = (f"SELECT prod_id, prod_nom FROM produits WHERE prod_id = '{result[n]}'")
+            self.mycursor.execute(query)
+            product = self.mycursor.fetchall()
+            product = product[0]
+            # add a ranking
+            rank = list(product)
+            rank.append(n)
+            product = tuple(rank)
+            prod_list.append(product)
+
+        return prod_list
+
+
 
 if __name__ == "__main__":
     requests = Requests()
 
-# print(requests.cat_popular())
+    print(requests.prod_in_cat(11))
