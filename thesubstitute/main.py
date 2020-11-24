@@ -7,22 +7,26 @@ class Main:
     def __init__(self):
         """ """
         self.views = Views()
-        self.clear()
-
-
 
     def clear(self):
-        """ I clear the terminal. """ 
-  
-        # for windows 
+        """ I clear the terminal. """  
         if name == 'nt': 
-            _ = system('cls') 
-    
-        # for mac and linux(here, os.name is 'posix') 
+            _ = system('cls')  
         else: 
-            _ = system('clear') 
+            _ = system('clear')
+
+    def main_menu(self):
+        """ I display the categories menu. """
+        self.clear()
+        self.views.header()
+        self.views.menu_cat()
+        self.select_cat()
+
+    def select_cat(self):
+        selected_cat = input("quelle cat ?")
+        print(selected_cat)
 
 if __name__ == "__main__":
     main = Main()
 
-main
+    main.main_menu()
