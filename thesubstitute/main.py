@@ -23,10 +23,14 @@ class Main:
         self.select_cat()
 
     def select_cat(self):
-        selected_cat = input("quelle cat ?")
-        print(selected_cat)
+        self.selected_cat = input("quelle cat ?")
+        # self.selected_cat = '11'
+        return self.selected_cat
+
+    def list_of_products(self, cat_id):
+        self.views.list_prod(cat_id)
 
 if __name__ == "__main__":
     main = Main()
 
-    main.main_menu()
+    main.list_of_products(main.select_cat())
