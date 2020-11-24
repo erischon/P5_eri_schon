@@ -27,7 +27,6 @@ class Requests:
     def product_list(self, cat_id):
         """ """
         list_of_tuple = []
-        # query = f"SELECT p.prod_id, p.prod_nom FROM produits p INNER JOIN prodcat pc ON pc.prod_id = p.prod_id;"
         query = f"SELECT prod_id FROM prodcat WHERE cat_id = '{cat_id}';"
 
         self.mycursor.execute(query)
@@ -48,6 +47,8 @@ class Requests:
 
         print(result) 
 
+
+    ########## Methods ########## ########## ########## ##########
 
     def to_list_of_integer(self, l_o_t):
         """ Transform a list of tuple (l_o_t) to a list of integer (l_o_i) """
@@ -76,4 +77,14 @@ if __name__ == "__main__":
 
     # print(requests.product_list(11))
     # print(requests.cat_popular())
-    print(requests.product_infos('3268840001008'))
+    # print(requests.product_infos('3268840001008'))
+
+    # query = f"SELECT p.prod_id FROM produits p INNER JOIN prodcat pc ON pc.cat_id = '11' AND pc.prod_id = p.prod_id;"
+
+    # query = f"SELECT p.prod_id, p.prod_nom, p.prod_url, s.shop_nom, m.marq_nom FROM produits p, shops s, marques m INNER JOIN prodcat pc, prodshop ps, prodmarq pm ON pc.cat_id = '11' AND pc.prod_id = p.prod_id AND ps.prod_id = p.prod_id AND pm.prod_id = p.prod_id;"
+    query_product = f"SELECT p.prod_id, p.prod_nom, p.prod_url, p.nut_id FROM produits p INNER JOIN prodcat pc ON pc.cat_id = '11' AND pc.prod_id = p.prod_id;"
+    query_shop = f"SELECT s.shop_nom FROM shops s INNER JOIN prodshop ps ON ps.prod_id = '3274080005003' AND ps.shop_id = s.shop_id;"
+    query_marque = f"SELECT m.marq_nom FROM marques m INNER JOIN prodmarq pm ON pm.prod_id = '3274080005003' AND pm.marq_id = m.marq_id;"
+    query_nutri = f"SELECT nut_type FROM nutriscore WHERE nut_id = '1';"
+
+    print(query)
