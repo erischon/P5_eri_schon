@@ -11,18 +11,18 @@ class Views:
         """ I display the categories menu. """
         
         for n in range(len(self.requests.cat_popular())):
-            print(f"{self.requests.cat_popular()[n][2]+1} - {self.requests.cat_popular()[n][1]}")
+            print(f" {self.requests.cat_popular()[n][2]+1} - {self.requests.cat_popular()[n][1]}")
 
     def menu_main(self):
         pass
 
     def header(self):
         print(
-            "========================================\n"
-            "========================================\n"
-            "=======      THE SUBSTITUTE      =======\n"
-            "========================================\n"
-            "========================================\n"
+            " ========================================\n"
+            " ========================================\n"
+            " =======      THE SUBSTITUTE      =======\n"
+            " ========================================\n"
+            " ========================================\n"
         )
 
 
