@@ -23,17 +23,19 @@ class Requests:
         result = [''.join(i) for i in result]
         result = [int(i) for i in result]
 
-        cat_choice = []
+        cat_popular = []
 
         for n in range(len(result)):
             query = f"SELECT cat_id, cat_nom FROM categories WHERE cat_id = '{result[n]}'"
             self.mycursor.execute(query)
-            result_name = self.mycursor.fetchall()
-            result_name = result_name[0]
-            print(result_name)
-            cat_choice.append(result_name)
+            categorie = self.mycursor.fetchall()
+            categorie = categorie[0]
+            x = list(categorie)
+            x.append(n)
+            categorie = tuple(x)
+            cat_popular.append(categorie)
 
-        return cat_choice
+        return cat_popular
 
 
 if __name__ == "__main__":
