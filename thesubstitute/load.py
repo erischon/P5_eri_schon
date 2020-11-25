@@ -134,7 +134,7 @@ class Loader:
 
     def insert(self, query):
         self.mycursor.execute(query)
-        self.connection.commit()
+        self.database.connection.commit()
 
     def search_id(self, query):
         self.mycursor.execute(query)
