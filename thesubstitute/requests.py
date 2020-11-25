@@ -64,7 +64,7 @@ class Requests:
 
     def substitute(self, cat_id, prod_nut):
         """ """
-        query_sub = f"SELECT p.prod_id, p.prod_nom, p.nut_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='11' AND p.prod_id = pc.prod_id AND p.nut_id <= '2' ORDER BY p.nut_id, p.prod_nom ASC LIMIT 5;"
+        query_sub = f"SELECT p.prod_id, p.prod_nom, p.nut_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='{cat_id}' AND p.prod_id = pc.prod_id AND p.nut_id <= '{prod_nut}' ORDER BY p.nut_id, p.prod_nom ASC LIMIT 5;"
         result = self.query(query_sub)
 
         print(result)
