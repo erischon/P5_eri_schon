@@ -4,6 +4,7 @@ import time
 from os import system, name
 from views import Views
 from extract import Extract
+from transform import Transform
 
 class Main:
     """ """
@@ -50,6 +51,7 @@ class Main:
         self.views.header_admin()
         extract = Extract()
         time.sleep(2)
+        transform = Transform()
         self.admin_menu()
 
 
