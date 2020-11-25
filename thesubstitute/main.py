@@ -1,3 +1,5 @@
+import sys
+
 from os import system, name
 from views import Views
 
@@ -7,6 +9,22 @@ class Main:
     def __init__(self):
         """ """
         self.views = Views()
+        self.state = True
+
+    def run_ts(self):
+        """ Start the main loop for the substitute. """
+        while self.state is True:
+            self.check_events()
+
+    def check_events(self):
+        """ Respond to keypresses. """
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                self._check_keydown_events(event)
+
+
 
     def clear(self):
         """ I clear the terminal. """  
@@ -33,4 +51,4 @@ class Main:
 if __name__ == "__main__":
     main = Main()
 
-    main.list_of_products(main.select_cat())
+    # main.list_of_products(main.select_cat())
