@@ -1,6 +1,8 @@
 import requests
 import json
 
+from views import Views
+
 
 class Extract:
     """ Extract data from OpenFoodFacts. """
@@ -21,19 +23,23 @@ class Extract:
             "fields": "generic_name_fr",
         }
 
+        self.views = Views()
         self.extract()
 
     def extract(self):
         """ I extract product from OpenFoodFacts """
-        request = requests.get(url=self.URL, params=self.PARAMS, headers=self.HEADERS)
-        products = request.json()
 
-        with open("off_data_extract.json", "w") as f:
-            json.dump(products, f)
+        try:
+            request = requests.get(url=self.URL, params=self.PARAMS, headers=self.HEADERS)
+            products = request.json()
 
-        print(
-            f"{len(products['products'])} produits ont été téléchargés dans le fichier."
-        )
+            with open("off_data_extract.json", "w") as f:
+                json.dump(products, f)
+
+            self.views.extract(len(products['products']))
+
+        except:
+            print("erreur")
 
 
 if __name__ == "__main__":
