@@ -3,6 +3,7 @@ import time
 
 from os import system, name
 from views import Views
+from extract import Extract
 
 class Main:
     """ """
@@ -12,23 +13,44 @@ class Main:
         self.views = Views()
         self.state = True
 
-    def menu(self):
+    def main_menu(self):
         self.clear()
         self.views.header()
         choice = self.views.main_choice()
 
         if choice == "A" or choice == "a":
-            register()
-        elif choice == "B" or choice =="b":
-            login()
+            self.admin_menu()
         elif choice=="Q" or choice=="q":
             sys.exit
         else:
             print("""
-            You must only select either A or B
-            Please try again.""")
+            Vous devez taper A ou Q
+            Merci de réessayer.""")
             time.sleep(2)
-            self.menu()
+            self.main_menu()
+
+    def admin_menu(self):
+        self.clear()
+        self.views.header_admin()
+        choice = self.views.admin_choice()
+
+        if choice == "A" or choice == "a":
+            self.etl()
+        elif choice=="Q" or choice=="q":
+            sys.exit
+        else:
+            print("""
+            Vous devez taper A ou Q
+            Merci de réessayer.""")
+            time.sleep(2)
+            self.admin_db()        
+
+    def etl(self):
+        self.clear()
+        self.views.header_admin()
+        extract = Extract()
+        time.sleep(2)
+        self.admin_menu()
 
 
 
@@ -39,22 +61,25 @@ class Main:
         else: 
             _ = system('clear')
 
-    def main_menu(self):
-        """ I display the categories menu. """
-        self.clear()
-        self.views.header()
-        self.views.menu_cat()
-        self.select_cat()
 
-    def select_cat(self):
-        self.selected_cat = input("quelle cat ?")
-        # self.selected_cat = '11'
-        return self.selected_cat
+    # def main_menu(self):
+    #     """ I display the categories menu. """
+    #     self.clear()
+    #     self.views.header()
+    #     self.views.menu_cat()
+    #     self.select_cat()
 
-    def list_of_products(self, cat_id):
-        self.views.list_prod(cat_id)
+    # def select_cat(self):
+    #     self.selected_cat = input("quelle cat ?")
+    #     # self.selected_cat = '11'
+    #     return self.selected_cat
+
+    # def list_of_products(self, cat_id):
+    #     self.views.list_prod(cat_id)
 
 if __name__ == "__main__":
     main = Main()
 
-    main.menu()
+    main.main_menu()
+
+    # main.etl()
