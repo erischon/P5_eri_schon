@@ -1,11 +1,10 @@
-from requests import Requests
+from model import Model
 
 class Views:
     """ """
 
     def __init__(self):
-        self.requests = Requests()
-
+        self.requests = Model()
 
     def menu_cat(self):
         """ I display the categories menu. """
@@ -39,6 +38,31 @@ class Views:
             Votre choix : """)
 
         return choice
+
+    def header_admin(self):
+        print("""
+            ========================================
+            ========================================
+            =======      THE SUBSTITUTE      =======
+            =======          ADMIN           =======
+            ========================================
+            ========================================
+            """)
+
+    def admin_choice(self):
+        choice = input("""
+            A : Lancer l'ETL
+            Q : Exit
+
+            Votre choix : """)
+
+        return choice
+
+    def extract(self, n):
+        print(f"""
+            C'EST UN SUCCES !\n
+            {n} produits ont été téléchargés dans le fichier off_data_extract.json.\n"""
+        )
 
 
 if __name__ == "__main__":
