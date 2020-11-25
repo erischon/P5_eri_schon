@@ -1,4 +1,5 @@
 import sys
+import time
 
 from os import system, name
 from views import Views
@@ -11,18 +12,23 @@ class Main:
         self.views = Views()
         self.state = True
 
-    def run_ts(self):
-        """ Start the main loop for the substitute. """
-        while self.state is True:
-            self.check_events()
+    def menu(self):
+        self.clear()
+        self.views.header()
+        choice = self.views.main_choice()
 
-    def check_events(self):
-        """ Respond to keypresses. """
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                self._check_keydown_events(event)
+        if choice == "A" or choice == "a":
+            register()
+        elif choice == "B" or choice =="b":
+            login()
+        elif choice=="Q" or choice=="q":
+            sys.exit
+        else:
+            print("""
+            You must only select either A or B
+            Please try again.""")
+            time.sleep(2)
+            self.menu()
 
 
 
@@ -51,4 +57,4 @@ class Main:
 if __name__ == "__main__":
     main = Main()
 
-    # main.list_of_products(main.select_cat())
+    main.menu()
