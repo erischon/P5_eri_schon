@@ -30,7 +30,8 @@ class Database:
             self.mycursor = self.connection.cursor()
 
             if self.connection.is_connected():
-                print(f"REUSSITE : Connection à la base {self.db_name} effectuée.")
+                pass
+                # print(f"REUSSITE : Connection à la base {self.db_name} effectuée.")
 
             return self.mycursor
 
