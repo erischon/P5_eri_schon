@@ -42,6 +42,9 @@ class Transform:
     def transform_field(self, data_clean):
 
         for code in data_clean:
+            # Product
+            data_clean[code]["product_name_fr"] = data_clean[code]["product_name_fr"].replace("'", " ")
+
             # Categories
             list_values = data_clean[code]["categories"].split(",")
             list_values = [value.strip(" ") for value in list_values]
