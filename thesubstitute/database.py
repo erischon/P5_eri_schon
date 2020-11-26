@@ -1,4 +1,5 @@
 import mysql.connector
+import time
 
 from config import *
 from mysql.connector import errorcode
@@ -17,33 +18,31 @@ class Database:
         self.db_name = "PureBeurre"
         self.tables = Tables()
         self.view = Views()
-        self.mycursor = self.connection()
+        self.mycursor = self.db_connection()
 
-    def connection(self):
+    def db_connection(self):
         """ """
         try:
-            self.connect = mysql.connector.connect(
+            self.connection = mysql.connector.connect(
                 host=self.host,
                 user=self.user,
                 password=self.password,
                 database=self.db_name,
             )
 
-            self.cursor = self.connect.cursor()
+            self.cursor = self.connection.cursor()
             return self.cursor
 
         except mysql.connector.Error as error:
             self.view.display_text_error("ECHEC : impossible de se connecter.", f"Type de l'erreur : {error}")
 
-    def disconnect(self, connection):
-        if (connection.is_connected()):
-            self.mycursor.close()
-            connection.close()
+    # def disconnect(self, connection):
+    #     if (connection.is_connected()):
+    #         self.mycursor.close()
+    #         connection.close()
 
     def db_create(self):
         """ """
-        # mycursor = self.connection()
-
         try:
             self.mycursor.execute(
                 "CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(self.db_name)
@@ -55,8 +54,6 @@ class Database:
 
     def tables_create(self):
         """ """
-        # mycursor = self.connection()
-
         for table_name in self.tables.TABLES:
             table_description = self.tables.TABLES[table_name]
 
@@ -66,44 +63,34 @@ class Database:
 
             except mysql.connector.Error as error:
                 self.view.display_text_error("ECHEC : impossible de créer la table.", f"Type de l'erreur : {error}")
+        
+        self.load_nutriscore()
 
-    def tables_drop(self):
-        """ """
-        pass
+    # def tables_drop(self):
+    #     """ """
+    #     pass
 
     def tables_delete(self):
         """ """
-        mycursor = self.connection()
-
         query = "SET FOREIGN_KEY_CHECKS = 0;"
-        mycursor.execute(query)
+        self.mycursor.execute(query)
 
         for n in range(len(self.tables.tab_names)):
 
             try:
                 query = f"TRUNCATE TABLE {self.tables.tab_names[n]};"        
-                mycursor.execute(query)
+                self.mycursor.execute(query)
+                self.view.display_text(f"REUSSITE : la table {self.tables.tab_names[n].upper()} est remise à zéro.")
+                time.sleep(1)
             
             except mysql.connector.Error as error:
                 self.view.display_text_error("ECHEC : problème lors du delete des tables", f"Type de l'erreur : {error}")
 
     def load_nutriscore(self):
         """ """
-        mycursor = self.connection()
-
         try:
-            add_nutriscore = "INSERT INTO nutriscore (nut_id, nut_type) VALUES (%s,%s)"
-            values = (1, "A")
-            self.mycursor.execute(add_nutriscore, values)
-            values = (2, "B")
-            self.mycursor.execute(add_nutriscore, values)
-            values = (3, "C")
-            self.mycursor.execute(add_nutriscore, values)
-            values = (4, "D")
-            self.mycursor.execute(add_nutriscore, values)
-            values = (5, "E")
-            self.mycursor.execute(add_nutriscore, values)
-
+            query = "INSERT INTO nutriscore (nut_id, nut_type) VALUES (1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')"
+            self.mycursor.execute(query)
             self.connection.commit()
 
             print("Les différents Nutriscore ont été chargés dans la base.")
