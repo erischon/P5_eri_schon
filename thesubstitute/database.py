@@ -17,55 +17,55 @@ class Database:
         self.db_name = "PureBeurre"
         self.tables = Tables()
         self.view = Views()
+        self.mycursor = self.connection()
 
-    def connexion(self):
+    def connection(self):
         """ """
         try:
-            self.connexion = mysql.connector.connect(
+            self.connect = mysql.connector.connect(
                 host=self.host,
                 user=self.user,
                 password=self.password,
                 database=self.db_name,
             )
 
-            self.mycursor = self.connexion.cursor()
-            return self.mycursor
+            self.cursor = self.connect.cursor()
+            return self.cursor
 
         except mysql.connector.Error as error:
-            self.view.display_text("ECHEC : impossible de se connecter.", f"Type de l'erreur : {error}")
+            self.view.display_text_error("ECHEC : impossible de se connecter.", f"Type de l'erreur : {error}")
+
+    def disconnect(self, connection):
+        if (connection.is_connected()):
+            self.mycursor.close()
+            connection.close()
 
     def db_create(self):
         """ """
-        mycursor = self.connexion()
+        # mycursor = self.connection()
 
         try:
-            mycursor.execute(
-                "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(self.db_name)
+            self.mycursor.execute(
+                "CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(self.db_name)
             )
-            print(f"REUSSITE : création de la base {self.db_name} effectuée.")
+            self.view.display_text("REUSSITE : la base est crée.")
 
         except mysql.connector.Error as error:
-            self.view.display_text("ECHEC : impossible de créer la base.", f"Type de l'erreur : {error}")
-            exit(1)
+            self.view.display_text_error("ECHEC : impossible de créer la base.", f"Type de l'erreur : {error}")
 
     def tables_create(self):
         """ """
-        mycursor = self.connexion()
+        # mycursor = self.connection()
 
         for table_name in self.tables.TABLES:
             table_description = self.tables.TABLES[table_name]
 
             try:
-                mycursor.execute(table_description)
-                print(
-                    "REUSSITE : la création de la table {} est effectuée.\n".format(
-                        table_name
-                    ),
-                    end="",
-                )
+                self.mycursor.execute(table_description)
+                self.view.display_text(f"REUSSITE : la table {table_name.upper()} est active.")
 
             except mysql.connector.Error as error:
-                self.view.display_text("ECHEC : impossible de créer la table.", f"Type de l'erreur : {error}")
+                self.view.display_text_error("ECHEC : impossible de créer la table.", f"Type de l'erreur : {error}")
 
     def tables_drop(self):
         """ """
@@ -73,7 +73,7 @@ class Database:
 
     def tables_delete(self):
         """ """
-        mycursor = self.connexion()
+        mycursor = self.connection()
 
         query = "SET FOREIGN_KEY_CHECKS = 0;"
         mycursor.execute(query)
@@ -85,11 +85,11 @@ class Database:
                 mycursor.execute(query)
             
             except mysql.connector.Error as error:
-                self.view.display_text("ECHEC : problème lors du delete des tables", f"Type de l'erreur : {error}")
+                self.view.display_text_error("ECHEC : problème lors du delete des tables", f"Type de l'erreur : {error}")
 
     def load_nutriscore(self):
         """ """
-        mycursor = self.connexion()
+        mycursor = self.connection()
 
         try:
             add_nutriscore = "INSERT INTO nutriscore (nut_id, nut_type) VALUES (%s,%s)"
@@ -104,19 +104,19 @@ class Database:
             values = (5, "E")
             self.mycursor.execute(add_nutriscore, values)
 
-            self.connexion.commit()
+            self.connection.commit()
 
             print("Les différents Nutriscore ont été chargés dans la base.")
 
         except mysql.connector.Error as error:
-            self.view.display_text("ECHEC : problème lors du chargement.", f"Type de l'erreur : {error}")
+            self.view.display_text_error("ECHEC : problème lors du chargement.", f"Type de l'erreur : {error}")
 
 
 if __name__ == "__main__":
     database = Database()
 
-    # database.connexion()
+    # database.connection()
     # database.db_create()
     # database.tables_create()
     # database.load_nutriscore()
-    database.tables_delete()
+    # database.tables_delete()
