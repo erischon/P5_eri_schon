@@ -34,13 +34,27 @@ class Main:
 
     def admin_menu(self):
         """ """
+
         self.clear()
         self.views.header_admin()
         option = self.views.admin_choice()
 
+        if option == "0":
+            self.main_menu()
         if option == "1":
+            self.clear()
+            self.views.header_admin()
             self.db.db_create()
+            time.sleep(2)
+            self.admin_menu()           
+        elif option == "2":
+            self.clear()
+            self.views.header_admin()
+            self.db.tables_create()
+            time.sleep(2)
             self.admin_menu()
+        elif option == "3":
+            pass
         elif option=="Q" or option=="q":
             sys.exit
         else:
@@ -48,7 +62,7 @@ class Main:
             Vous devez taper A ou Q
             Merci de réessayer.""")
             time.sleep(2)
-            self.admin_db()        
+            self.admin_menu()        
 
     def etl(self):
         self.clear()
