@@ -36,10 +36,10 @@ class Database:
         except mysql.connector.Error as error:
             self.view.display_text_error("ECHEC : impossible de se connecter.", f"Type de l'erreur : {error}")
 
-    # def disconnect(self, connection):
-    #     if (connection.is_connected()):
-    #         self.mycursor.close()
-    #         connection.close()
+    def disconnect(self):
+        if (self.connection.is_connected()):
+            self.mycursor.close()
+            self.connection.close()
 
     def db_create(self):
         """ """
@@ -63,12 +63,6 @@ class Database:
 
             except mysql.connector.Error as error:
                 self.view.display_text_error("ECHEC : impossible de créer la table.", f"Type de l'erreur : {error}")
-        
-        self.load_nutriscore()
-
-    # def tables_drop(self):
-    #     """ """
-    #     pass
 
     def tables_delete(self):
         """ """
@@ -86,18 +80,6 @@ class Database:
             except mysql.connector.Error as error:
                 self.view.display_text_error("ECHEC : problème lors du delete des tables", f"Type de l'erreur : {error}")
 
-    def load_nutriscore(self):
-        """ """
-        try:
-            query = "INSERT INTO nutriscore (nut_id, nut_type) VALUES (1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')"
-            self.mycursor.execute(query)
-            self.connection.commit()
-
-            print("Les différents Nutriscore ont été chargés dans la base.")
-
-        except mysql.connector.Error as error:
-            self.view.display_text_error("ECHEC : problème lors du chargement.", f"Type de l'erreur : {error}")
-
 
 if __name__ == "__main__":
     database = Database()
@@ -107,3 +89,4 @@ if __name__ == "__main__":
     # database.tables_create()
     # database.load_nutriscore()
     # database.tables_delete()
+    database.disconnect()
