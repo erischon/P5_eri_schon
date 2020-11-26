@@ -5,6 +5,7 @@ from os import system, name
 from views import Views
 from extract import Extract
 from transform import Transform
+from database import Database
 
 class Main:
     """ """
@@ -12,6 +13,7 @@ class Main:
     def __init__(self):
         """ """
         self.views = Views()
+        self.db = Database()
         self.state = True
 
     def main_menu(self):
@@ -31,13 +33,15 @@ class Main:
             self.main_menu()
 
     def admin_menu(self):
+        """ """
         self.clear()
         self.views.header_admin()
-        choice = self.views.admin_choice()
+        option = self.views.admin_choice()
 
-        if choice == "A" or choice == "a":
-            self.etl()
-        elif choice=="Q" or choice=="q":
+        if option == "1":
+            self.db.db_create()
+            self.admin_menu()
+        elif option=="Q" or option=="q":
             sys.exit
         else:
             print("""
@@ -82,6 +86,7 @@ class Main:
 if __name__ == "__main__":
     main = Main()
 
-    main.main_menu()
+    # main.main_menu()
+    main.admin_menu()
 
     # main.etl()
