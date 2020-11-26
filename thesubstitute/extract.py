@@ -24,11 +24,9 @@ class Extract:
         }
 
         self.views = Views()
-        self.extract()
 
     def extract(self):
         """ I extract product from OpenFoodFacts """
-
         try:
             request = requests.get(url=self.URL, params=self.PARAMS, headers=self.HEADERS)
             products = request.json()
@@ -36,7 +34,9 @@ class Extract:
             with open("off_data_extract.json", "w") as f:
                 json.dump(products, f)
 
-            self.views.extract(len(products['products']))
+            self.views.display_text(f"""
+                C'EST UN SUCCES !
+                {len(products['products'])} produits ont été téléchargés dans le fichier off_data_extract.json.""")
 
         except:
             print("erreur")
@@ -44,3 +44,5 @@ class Extract:
 
 if __name__ == "__main__":
     extract = Extract()
+
+    # extract.extract()
