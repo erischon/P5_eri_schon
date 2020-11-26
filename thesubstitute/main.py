@@ -18,7 +18,6 @@ class Main:
         self.extraction = Extract()
         self.transform = Transform()
         self.load = Load()
-        # self.state = True
 
     def main_menu(self):
         self.clear()
@@ -49,37 +48,37 @@ class Main:
             self.clear()
             self.views.header_admin()
             self.db.db_create()
-            time.sleep(2)
+            self.views.pause()
             self.admin_menu()           
         elif option == "2":
             self.clear()
             self.views.header_admin()
             self.db.tables_create()
-            time.sleep(2)
+            self.views.pause()
             self.admin_menu()
         elif option == "3":
             self.clear()
             self.views.header_admin()
             self.db.tables_delete()
-            time.sleep(2)
+            self.views.pause()
             self.admin_menu()
         elif option == "4":
             self.clear()
             self.views.header_admin()
             self.extraction.extract()
-            time.sleep(2)
+            self.views.pause()
             self.admin_menu()
         elif option == "5":
             self.clear()
             self.views.header_admin()
             self.transform.transform_basic()
-            time.sleep(2)
+            self.views.pause()
             self.admin_menu()
         elif option == "6":
             self.clear()
             self.views.header_admin()
             self.load.load_data()
-            time.sleep(2)
+            self.views.pause()
             self.admin_menu()
         elif option=="Q" or option=="q":
             sys.exit
