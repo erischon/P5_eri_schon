@@ -7,7 +7,7 @@ class Model:
 
     def __init__(self):
         self.database = Database()
-        self.mycursor = self.database.connexion()
+        self.mycursor = self.database.db_connection()
 
     def cat_popular(self):
         """ I return the list of the 10 most popular categories """
