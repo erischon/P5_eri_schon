@@ -15,17 +15,28 @@ class Load:
         self.shop = ModShops()
         self.database = Database()
         self.views = Views()
-        # self.database.load_nutriscore()
         self.mycursor = self.database.db_connection()
+        # self.load_nutriscore()
         self.open_json()
 
     def open_json(self):
         with open("off_data_transform.json", encoding="utf-8") as json_file:
             self.my_products = json.load(json_file)
 
+    def load_nutriscore(self):
+        """ """
+        try:
+            query = "INSERT INTO nutriscore (nut_id, nut_type) VALUES (1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')"
+            self.insert(query)
+
+            self.views.display_text("REUSSITE: Les différents Nutriscore ont été chargés dans la base.")
+
+        except:
+            self.views.display_text_error("ECHEC : problème lors du chargement des Nutriscore.")
+
     def load_data(self):
         """ """
-        print(list(self.my_products.keys()))
+        self.load_nutriscore()
 
         for prod_key in list(self.my_products.keys()):
             # prod_key = list(self.my_products.keys())[3]
@@ -43,10 +54,9 @@ class Load:
                 add_product = f"INSERT INTO produits SET prod_id='{prod_key}', prod_nom='{prod_to_load['product_name_fr']}', prod_url='{prod_to_load['url']}', nut_id='{nut_id}'"
 
                 self.insert(add_product)
+                self.views.display_text(f"Le produit : {prod_to_load['product_name_fr']} est entré en base.")
             else:
-                print(
-                    f"Le produit : {prod_to_load['product_name_fr']}, avec le code : {prod_key}, existe déjà"
-                )
+                pass
 
             # Insert Categories in Tables : categories & prodcat
             for n in range(len(prod_to_load["categories"])):
@@ -92,6 +102,9 @@ class Load:
                     add_prodshop = f"INSERT INTO prodshop SET shop_id='{shop_id}', prod_id='{prod_key}' "
                     self.insert(add_prodshop)
 
+        self.views.display_text(f"\n{len(self.my_products.keys())} produits sont entrés en base.\n")
+        # self.disconnect()
+
     def read_categorie(self, value):
         """ """
         result = self.check_product(
@@ -136,14 +149,20 @@ class Load:
                 return id
 
     def insert(self, query):
+        """ """
         self.mycursor.execute(query)
         self.database.connection.commit()
 
     def search_id(self, query):
+        """ """
         self.mycursor.execute(query)
         rows = self.mycursor.fetchall()
         return rows
 
+    def disconnect(self):
+        if (self.database.connection.is_connected()):
+            self.mycursor.close()
+            self.database.connection.close()
 
 # ============================================================
 
@@ -151,4 +170,5 @@ if __name__ == "__main__":
     loader = Load()
 
     # loader.open_json()
-    print(loader.load_data())
+    # print(loader.load_data())
+    # loader.load_nutriscore()
