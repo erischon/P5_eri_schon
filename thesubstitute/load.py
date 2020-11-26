@@ -2,10 +2,11 @@ import json
 
 from itertools import chain
 from database import Database
+from views import Views
 from tab_modeles import ModProduits, ModCategories, ModMarques, ModShops
 
 
-class Loader:
+class Load:
     def __init__(self):
         """ """
         self.prod = ModProduits()
@@ -13,7 +14,9 @@ class Loader:
         self.marq = ModMarques()
         self.shop = ModShops()
         self.database = Database()
-        self.mycursor = self.database.connection()
+        self.views = Views()
+        # self.database.load_nutriscore()
+        self.mycursor = self.database.db_connection()
         self.open_json()
 
     def open_json(self):
@@ -145,7 +148,7 @@ class Loader:
 # ============================================================
 
 if __name__ == "__main__":
-    loader = Loader()
+    loader = Load()
 
-# loader.open_json()
-print(loader.load_data())
+    # loader.open_json()
+    print(loader.load_data())
