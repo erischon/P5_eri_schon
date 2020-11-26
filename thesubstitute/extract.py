@@ -35,8 +35,8 @@ class Extract:
                 json.dump(products, f)
 
             self.views.display_text(f"""
-                C'EST UN SUCCES !
-                {len(products['products'])} produits ont été téléchargés dans le fichier off_data_extract.json.""")
+            REUSSITE de l'Extraction :
+            {len(products['products'])} produits ont été téléchargés dans le fichier off_data_extract.json.""")
 
         except:
             print("erreur")

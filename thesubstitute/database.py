@@ -36,11 +36,6 @@ class Database:
         except mysql.connector.Error as error:
             self.view.display_text_error("ECHEC : impossible de se connecter.", f"Type de l'erreur : {error}")
 
-    def disconnect(self):
-        if (self.connection.is_connected()):
-            self.mycursor.close()
-            self.connection.close()
-
     def db_create(self):
         """ """
         try:
@@ -89,4 +84,4 @@ if __name__ == "__main__":
     # database.tables_create()
     # database.load_nutriscore()
     # database.tables_delete()
-    database.disconnect()
+    # database.disconnect()

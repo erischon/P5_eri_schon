@@ -29,19 +29,21 @@ class Load:
             query = "INSERT INTO nutriscore (nut_id, nut_type) VALUES (1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')"
             self.insert(query)
 
-            self.views.display_text("REUSSITE: Les différents Nutriscore ont été chargés dans la base.")
+            self.views.display_text("""
+            REUSSITE :
+            Les différents Nutriscore ont été chargés dans la base.""")
 
         except:
-            self.views.display_text_error("ECHEC : problème lors du chargement des Nutriscore.")
+            self.views.display_text_error("""
+            ECHEC Nutriscore : 
+            problème lors du chargement, mais rien de grave.""")
 
     def load_data(self):
         """ """
         self.load_nutriscore()
 
         for prod_key in list(self.my_products.keys()):
-            # prod_key = list(self.my_products.keys())[3]
             prod_to_load = self.my_products[prod_key]
-            # print(prod_to_load)
 
             # Produits
             if self.read_produits(prod_key) == False:
@@ -102,7 +104,9 @@ class Load:
                     add_prodshop = f"INSERT INTO prodshop SET shop_id='{shop_id}', prod_id='{prod_key}' "
                     self.insert(add_prodshop)
 
-        self.views.display_text(f"\n{len(self.my_products.keys())} produits sont entrés en base.\n")
+        self.views.display_text(f"""
+            REUSSITE du chargement des produits :
+            {len(self.my_products.keys())} produits sont entrés en base.""")
         # self.disconnect()
 
     def read_categorie(self, value):

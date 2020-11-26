@@ -68,14 +68,6 @@ class Views:
 
         return menu
 
-    # def extract(self, n):
-    #     print(f"""
-    #         C'EST UN SUCCES !\n
-    #         {n} produits ont été téléchargés dans le fichier off_data_extract.json.\n"""
-    #     )
-
-    ######
-
     def display_text(self, text):
         
         print(f"""              {text}""")
@@ -84,8 +76,7 @@ class Views:
         
         print(f"""
             {text}
-            {error}
-            """)
+            {error}""")
 
     def pause(self):
         input("""

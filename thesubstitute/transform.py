@@ -74,7 +74,7 @@ class Transform:
             json.dump(data_clean, fp)
 
         self.views.display_text(f"""
-            C'EST UN SUCCES !
+            REUSSITE de la Transformation :
             Les produits ont été téléchargés dans le fichier off_data_transform.json.""")        
 
 

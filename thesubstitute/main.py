@@ -80,6 +80,14 @@ class Main:
             self.load.load_data()
             self.views.pause()
             self.admin_menu()
+        elif option == "7":
+            self.clear()
+            self.views.header_admin()
+            self.extraction.extract()
+            self.transform.transform_basic()
+            self.load.load_data()
+            self.views.pause()
+            self.admin_menu()
         elif option=="Q" or option=="q":
             sys.exit
         else:
@@ -96,8 +104,6 @@ class Main:
         time.sleep(2)
         transform = Transform()
         self.admin_menu()
-
-
 
     def clear(self):
         """ I clear the terminal. """  
