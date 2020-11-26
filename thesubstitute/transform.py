@@ -1,5 +1,7 @@
 import json
 
+from views import Views
+
 
 class Transform:
     def __init__(self):
@@ -14,9 +16,9 @@ class Transform:
             "stores",
         )
         self.data_clean = {}
-
+        self.views = Views()
         self.open_json()
-        self.transform_basic()
+        # self.transform_basic()
 
     def open_json(self):
         """ """
@@ -70,6 +72,10 @@ class Transform:
     def create_json(self, data_clean):
         with open("off_data_transform.json", "w") as fp:
             json.dump(data_clean, fp)
+
+        self.views.display_text(f"""
+            C'EST UN SUCCES !
+            Les produits ont été téléchargés dans le fichier off_data_transform.json.""")        
 
 
 if __name__ == "__main__":
