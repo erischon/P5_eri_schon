@@ -45,19 +45,20 @@ class Views:
             ========================================
             ========================================
             =======      THE SUBSTITUTE      =======
-            =======          ADMIN           =======
+            =======         DB ADMIN         =======
             ========================================
             ========================================
             """)
 
     def admin_choice(self):
-        choice = input("""
-            A : Lancer l'ETL
+        menu = input(f"""
+            1 : Créer la base
+            2 : Effacer toutes les tables
             Q : Exit
 
             Votre choix : """)
 
-        return choice
+        return menu
 
     def extract(self, n):
         print(f"""
