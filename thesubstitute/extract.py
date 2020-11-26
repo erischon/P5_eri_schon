@@ -28,15 +28,19 @@ class Extract:
     def extract(self):
         """ I extract product from OpenFoodFacts """
         try:
-            request = requests.get(url=self.URL, params=self.PARAMS, headers=self.HEADERS)
+            request = requests.get(
+                url=self.URL, params=self.PARAMS, headers=self.HEADERS
+            )
             products = request.json()
 
             with open("off_data_extract.json", "w") as f:
                 json.dump(products, f)
 
-            self.views.display_text(f"""
+            self.views.display_text(
+                f"""
             REUSSITE de l'Extraction :
-            {len(products['products'])} produits ont été téléchargés dans le fichier off_data_extract.json.""")
+            {len(products['products'])} produits ont été téléchargés dans le fichier off_data_extract.json."""
+            )
 
         except:
             print("erreur")

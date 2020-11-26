@@ -16,7 +16,6 @@ class Load:
         self.database = Database()
         self.views = Views()
         self.mycursor = self.database.db_connection()
-        # self.load_nutriscore()
         self.open_json()
 
     def open_json(self):
@@ -29,14 +28,18 @@ class Load:
             query = "INSERT INTO nutriscore (nut_id, nut_type) VALUES (1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')"
             self.insert(query)
 
-            self.views.display_text("""
+            self.views.display_text(
+                """
             REUSSITE :
-            Les différents Nutriscore ont été chargés dans la base.""")
+            Les différents Nutriscore ont été chargés dans la base."""
+            )
 
         except:
-            self.views.display_text_error("""
+            self.views.display_text_error(
+                """
             ECHEC Nutriscore : 
-            problème lors du chargement, mais rien de grave.""")
+            problème lors du chargement, mais rien de grave."""
+            )
 
     def load_data(self):
         """ """
@@ -56,7 +59,10 @@ class Load:
                 add_product = f"INSERT INTO produits SET prod_id='{prod_key}', prod_nom='{prod_to_load['product_name_fr']}', prod_url='{prod_to_load['url']}', nut_id='{nut_id}'"
 
                 self.insert(add_product)
-                self.views.display_text(f"Le produit : {prod_to_load['product_name_fr']} est entré en base.")
+            #     self.views.display_text(
+            #         f"""
+            # Le produit : {prod_to_load['product_name_fr']} est entré en base."""
+            #     )
             else:
                 pass
 
@@ -104,10 +110,11 @@ class Load:
                     add_prodshop = f"INSERT INTO prodshop SET shop_id='{shop_id}', prod_id='{prod_key}' "
                     self.insert(add_prodshop)
 
-        self.views.display_text(f"""
+        self.views.display_text(
+            f"""
             REUSSITE du chargement des produits :
-            {len(self.my_products.keys())} produits sont entrés en base.""")
-        # self.disconnect()
+            {len(self.my_products.keys())} produits sont entrés en base."""
+        )
 
     def read_categorie(self, value):
         """ """
@@ -163,10 +170,6 @@ class Load:
         rows = self.mycursor.fetchall()
         return rows
 
-    def disconnect(self):
-        if (self.database.connection.is_connected()):
-            self.mycursor.close()
-            self.database.connection.close()
 
 # ============================================================
 

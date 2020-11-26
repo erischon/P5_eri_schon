@@ -1,5 +1,6 @@
 # from model import Model
 
+
 class Views:
     """ """
 
@@ -9,13 +10,13 @@ class Views:
 
     # def menu_cat(self):
     #     """ I display the categories menu. """
-        
+
     #     for n in range(len(self.requests.cat_popular())):
     #         print(f" {self.requests.cat_popular()[n][2]+1} - {self.requests.cat_popular()[n][1]}")
 
     # def list_prod(self, cat_id):
     #     """ I display the list of products. """
-        
+
     #     for n in range(len(self.requests.product_list(cat_id))):
     #         print(f" {self.requests.product_list(cat_id)[n][2]+1} - {self.requests.product_list(cat_id)[n][1]}")
 
@@ -23,25 +24,30 @@ class Views:
         pass
 
     def header(self):
-        print("""
+        print(
+            """
             ========================================
             ========================================
             =======      THE SUBSTITUTE      =======
             ========================================
             ========================================
-            """)
+            """
+        )
 
     def main_choice(self):
-        choice = input("""
+        choice = input(
+            """
             A : Administrer les données OpenFoodFacts
             Q : Exit
 
-            Votre choix : """)
+            Votre choix : """
+        )
 
         return choice
 
     def header_admin(self):
-        print("""
+        print(
+            """
             ========================================
             ========================================
             =======                          =======
@@ -50,10 +56,12 @@ class Views:
             =======                          =======
             ========================================
             ========================================
-            """)
+            """
+        )
 
     def admin_choice(self):
-        menu = input(f"""
+        menu = input(
+            f"""
             0 : Menu principal
             1 : Créer la base de données
             2 : Créer les tables
@@ -64,26 +72,30 @@ class Views:
             7 : Extract / Transform / Load
             Q : Exit
 
-            Votre choix : """)
+            Votre choix : """
+        )
 
         return menu
 
     def display_text(self, text):
-        
+
         print(f"""              {text}""")
 
-    def display_text_error(self, text, error=''):
-        
-        print(f"""
+    def display_text_error(self, text, error=""):
+
+        print(
+            f"""
             {text}
-            {error}""")
+            {error}"""
+        )
 
     def pause(self):
-        input("""
+        input(
+            """
             Appuyez sur Entrée pour continuer...
-            """)
+            """
+        )
 
-    ######
 
 if __name__ == "__main__":
     view = Views()

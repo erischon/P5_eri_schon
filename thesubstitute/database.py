@@ -34,18 +34,24 @@ class Database:
             return self.cursor
 
         except mysql.connector.Error as error:
-            self.view.display_text_error("ECHEC : impossible de se connecter.", f"Type de l'erreur : {error}")
+            self.view.display_text_error(
+                "ECHEC : impossible de se connecter.", f"Type de l'erreur : {error}"
+            )
 
     def db_create(self):
         """ """
         try:
             self.mycursor.execute(
-                "CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(self.db_name)
+                "CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(
+                    self.db_name
+                )
             )
             self.view.display_text("REUSSITE : la base est crée.")
 
         except mysql.connector.Error as error:
-            self.view.display_text_error("ECHEC : impossible de créer la base.", f"Type de l'erreur : {error}")
+            self.view.display_text_error(
+                "ECHEC : impossible de créer la base.", f"Type de l'erreur : {error}"
+            )
 
     def tables_create(self):
         """ """
@@ -54,10 +60,15 @@ class Database:
 
             try:
                 self.mycursor.execute(table_description)
-                self.view.display_text(f"REUSSITE : la table {table_name.upper()} est active.")
+                self.view.display_text(
+                    f"REUSSITE : la table {table_name.upper()} est active."
+                )
 
             except mysql.connector.Error as error:
-                self.view.display_text_error("ECHEC : impossible de créer la table.", f"Type de l'erreur : {error}")
+                self.view.display_text_error(
+                    "ECHEC : impossible de créer la table.",
+                    f"Type de l'erreur : {error}",
+                )
 
     def tables_delete(self):
         """ """
@@ -67,13 +78,18 @@ class Database:
         for n in range(len(self.tables.tab_names)):
 
             try:
-                query = f"TRUNCATE TABLE {self.tables.tab_names[n]};"        
+                query = f"TRUNCATE TABLE {self.tables.tab_names[n]};"
                 self.mycursor.execute(query)
-                self.view.display_text(f"REUSSITE : la table {self.tables.tab_names[n].upper()} est remise à zéro.")
+                self.view.display_text(
+                    f"REUSSITE : la table {self.tables.tab_names[n].upper()} est remise à zéro."
+                )
                 time.sleep(1)
-            
+
             except mysql.connector.Error as error:
-                self.view.display_text_error("ECHEC : problème lors du delete des tables", f"Type de l'erreur : {error}")
+                self.view.display_text_error(
+                    "ECHEC : problème lors du delete des tables",
+                    f"Type de l'erreur : {error}",
+                )
 
 
 if __name__ == "__main__":

@@ -45,7 +45,9 @@ class Transform:
 
         for code in data_clean:
             # Product
-            data_clean[code]["product_name_fr"] = data_clean[code]["product_name_fr"].replace("'", " ")
+            data_clean[code]["product_name_fr"] = data_clean[code][
+                "product_name_fr"
+            ].replace("'", " ")
 
             # Categories
             list_values = data_clean[code]["categories"].split(",")
@@ -73,9 +75,11 @@ class Transform:
         with open("off_data_transform.json", "w") as fp:
             json.dump(data_clean, fp)
 
-        self.views.display_text(f"""
+        self.views.display_text(
+            f"""
             REUSSITE de la Transformation :
-            Les produits ont été téléchargés dans le fichier off_data_transform.json.""")        
+            Les produits ont été téléchargés dans le fichier off_data_transform.json."""
+        )
 
 
 if __name__ == "__main__":

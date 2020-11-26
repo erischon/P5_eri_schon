@@ -8,6 +8,7 @@ from transform import Transform
 from load import Load
 from database import Database
 
+
 class Main:
     """ """
 
@@ -26,12 +27,14 @@ class Main:
 
         if choice == "A" or choice == "a":
             self.admin_menu()
-        elif choice=="Q" or choice=="q":
+        elif choice == "Q" or choice == "q":
             sys.exit
         else:
-            print("""
+            print(
+                """
             Vous devez taper A ou Q
-            Merci de réessayer.""")
+            Merci de réessayer."""
+            )
             time.sleep(2)
             self.main_menu()
 
@@ -49,7 +52,7 @@ class Main:
             self.views.header_admin()
             self.db.db_create()
             self.views.pause()
-            self.admin_menu()           
+            self.admin_menu()
         elif option == "2":
             self.clear()
             self.views.header_admin()
@@ -88,30 +91,23 @@ class Main:
             self.load.load_data()
             self.views.pause()
             self.admin_menu()
-        elif option=="Q" or option=="q":
+        elif option == "Q" or option == "q":
             sys.exit
         else:
-            print("""
+            print(
+                """
             Vous devez taper A ou Q
-            Merci de réessayer.""")
+            Merci de réessayer."""
+            )
             time.sleep(2)
-            self.admin_menu()        
-
-    def etl(self):
-        self.clear()
-        self.views.header_admin()
-        extract = Extract()
-        time.sleep(2)
-        transform = Transform()
-        self.admin_menu()
+            self.admin_menu()
 
     def clear(self):
-        """ I clear the terminal. """  
-        if name == 'nt': 
-            _ = system('cls')  
-        else: 
-            _ = system('clear')
-
+        """ I clear the terminal. """
+        if name == "nt":
+            _ = system("cls")
+        else:
+            _ = system("clear")
 
     # def main_menu(self):
     #     """ I display the categories menu. """
@@ -127,6 +123,7 @@ class Main:
 
     # def list_of_products(self, cat_id):
     #     self.views.list_prod(cat_id)
+
 
 if __name__ == "__main__":
     main = Main()
