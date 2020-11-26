@@ -52,8 +52,10 @@ class Views:
 
     def admin_choice(self):
         menu = input(f"""
-            1 : Créer la base
-            2 : Effacer toutes les tables
+            0 : Menu principal
+            1 : Créer la base de données
+            2 : Créer les tables
+            3 : Effacer toutes les tables
             Q : Exit
 
             Votre choix : """)
@@ -68,7 +70,11 @@ class Views:
 
     ######
 
-    def display_text(self, text, error=''):
+    def display_text(self, text):
+        
+        print(f"""              {text}""")
+
+    def display_text_error(self, text, error=''):
         
         print(f"""
             {text}
