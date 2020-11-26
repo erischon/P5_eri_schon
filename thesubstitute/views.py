@@ -1,22 +1,23 @@
-from model import Model
+# from model import Model
 
 class Views:
     """ """
 
     def __init__(self):
-        self.requests = Model()
+        pass
+        # self.requests = Model()
 
-    def menu_cat(self):
-        """ I display the categories menu. """
+    # def menu_cat(self):
+    #     """ I display the categories menu. """
         
-        for n in range(len(self.requests.cat_popular())):
-            print(f" {self.requests.cat_popular()[n][2]+1} - {self.requests.cat_popular()[n][1]}")
+    #     for n in range(len(self.requests.cat_popular())):
+    #         print(f" {self.requests.cat_popular()[n][2]+1} - {self.requests.cat_popular()[n][1]}")
 
-    def list_prod(self, cat_id):
-        """ I display the list of products. """
+    # def list_prod(self, cat_id):
+    #     """ I display the list of products. """
         
-        for n in range(len(self.requests.product_list(cat_id))):
-            print(f" {self.requests.product_list(cat_id)[n][2]+1} - {self.requests.product_list(cat_id)[n][1]}")
+    #     for n in range(len(self.requests.product_list(cat_id))):
+    #         print(f" {self.requests.product_list(cat_id)[n][2]+1} - {self.requests.product_list(cat_id)[n][1]}")
 
     def menu_main(self):
         pass
@@ -64,8 +65,18 @@ class Views:
             {n} produits ont été téléchargés dans le fichier off_data_extract.json.\n"""
         )
 
+    ######
+
+    def display_text(self, text, error=''):
+        
+        print(f"""
+            {text}
+            {error}
+            """)
+
+    ######
 
 if __name__ == "__main__":
     view = Views()
 
-    view.list_prod("11")
+    # view.list_prod("11")
