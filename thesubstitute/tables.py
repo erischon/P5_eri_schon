@@ -3,6 +3,18 @@ class Tables:
 
     def __init__(self):
         """ """
+        self.tab_names = (
+            "prodcat",
+            "prodshop",
+            "prodmarq",
+            "nutriscore",
+            "sauvegardes",
+            "categories",
+            "shops",
+            "marques",
+            "produits"
+        )
+
         self.TABLES = {}
 
         self.TABLES["categories"] = (
