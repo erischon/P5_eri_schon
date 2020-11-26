@@ -5,6 +5,7 @@ from os import system, name
 from views import Views
 from extract import Extract
 from transform import Transform
+from load import Load
 from database import Database
 
 class Main:
@@ -14,7 +15,10 @@ class Main:
         """ """
         self.views = Views()
         self.db = Database()
-        self.state = True
+        self.extraction = Extract()
+        self.transform = Transform()
+        self.load = Load()
+        # self.state = True
 
     def main_menu(self):
         self.clear()
@@ -54,7 +58,29 @@ class Main:
             time.sleep(2)
             self.admin_menu()
         elif option == "3":
-            pass
+            self.clear()
+            self.views.header_admin()
+            self.db.tables_delete()
+            time.sleep(2)
+            self.admin_menu()
+        elif option == "4":
+            self.clear()
+            self.views.header_admin()
+            self.extraction.extract()
+            time.sleep(2)
+            self.admin_menu()
+        elif option == "5":
+            self.clear()
+            self.views.header_admin()
+            self.transform.transform_basic()
+            time.sleep(2)
+            self.admin_menu()
+        elif option == "6":
+            self.clear()
+            self.views.header_admin()
+            self.load.load_data()
+            time.sleep(2)
+            self.admin_menu()
         elif option=="Q" or option=="q":
             sys.exit
         else:
