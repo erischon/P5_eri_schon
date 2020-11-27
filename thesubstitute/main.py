@@ -12,7 +12,6 @@ from database import Database
 
 class Main:
     """ """
-
     def __init__(self):
         """ """
         self.views = Views()
