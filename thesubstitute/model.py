@@ -1,6 +1,7 @@
-from database import Database
+# from database import Database
 from itertools import chain
 from views import Views
+from connection import Connection
 
 
 class Model:
@@ -8,8 +9,9 @@ class Model:
 
     def __init__(self):
         self.view = Views()
-        self.database = Database()
-        self.mycursor = self.database.db_connection()
+        # self.database = Database()
+        self.connection = Connection()
+        # self.mycursor = self.database.db_connection()
 
     def cat_popular(self):
         """ I return the list of the 10 most popular categories. """
@@ -26,10 +28,14 @@ class Model:
 
     def cat_options(self):
         """ I display the categories options. """
+        print("""
+            Choisissez la catégorie dans laquelle se trouve le produit 
+            pour lequel vous chercher un substitut : \n""")
         for n in range(len(self.cat_popular())):
             self.view.display_text(f" {self.cat_popular()[n][2]+1} - {self.cat_popular()[n][1]}")
         
-        input ("votre choix")
+        input("""
+            votre choix : """)
 
     def product_list(self, cat_id):
         """ I return the list of product for un categorie. """
@@ -82,9 +88,8 @@ class Model:
 
     def query(self, query):
         """ """
-        self.mycursor.execute(query)
-        result = self.mycursor.fetchall()
-        return result 
+        self.connection.execute(query)
+        return self.connection.fetchall() 
 
     def to_list_of_integer(self, l_o_t):
         """ Transform a list of tuple (l_o_t) to a list of integer (l_o_i) """
@@ -106,10 +111,14 @@ class Model:
         return list_of_tuple
 
 if __name__ == "__main__":
-    requests = Model()
+    model = Model()
+
+    ### Tests of methods ###
+    # print(model.cat_popular())
+    print(model.cat_options())
 
     # print(requests.product_list(11))
-    print(requests.cat_popular())
+
     # print(requests.product_infos('3268840001008'))
     # print(requests.substitute('11', '3'))
 
