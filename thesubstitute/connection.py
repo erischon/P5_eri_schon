@@ -1,5 +1,4 @@
 import mysql.connector
-# from mysql.connector import errorcode
 
 from config import *
 
@@ -12,7 +11,7 @@ class Connection:
         self._host = HOST
         self._user = USER
         self._password = PASSWORD
-        self._db_name = "PureBeurre"
+        self.db_name = "PureBeurre"
 
         self._connect = self.db_connection()
         self._cursor = self._connect.cursor()
@@ -24,7 +23,7 @@ class Connection:
                 host=self._host,
                 user=self._user,
                 password=self._password,
-                database=self._db_name,
+                database=self.db_name,
             )
             return connection
 
