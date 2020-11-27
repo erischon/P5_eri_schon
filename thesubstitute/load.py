@@ -1,7 +1,7 @@
 import json
 
 from itertools import chain
-from database import Database
+from connection import Connection
 from views import Views
 from tab_modeles import ModProduits, ModCategories, ModMarques, ModShops
 
@@ -13,17 +13,18 @@ class Load:
         self.cat = ModCategories()
         self.marq = ModMarques()
         self.shop = ModShops()
-        self.database = Database()
+        # self.database = Database()
         self.views = Views()
-        self.mycursor = self.database.db_connection()
+        self.connection = Connection()
         self.open_json()
 
     def open_json(self):
+        """ I open the json. """
         with open("off_data_transform.json", encoding="utf-8") as json_file:
             self.my_products = json.load(json_file)
 
     def load_nutriscore(self):
-        """ """
+        """ I load the nutriscore and their id into the table. """
         try:
             query = "INSERT INTO nutriscore (nut_id, nut_type) VALUES (1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')"
             self.insert(query)
@@ -38,17 +39,18 @@ class Load:
             self.views.display_text_error(
                 """
             ECHEC Nutriscore : 
-            problème lors du chargement, mais rien de grave."""
+            problème lors du chargement (mais rien de grave)."""
             )
 
     def load_data(self):
-        """ """
+        """ I load all the data from json to their table. """
+        # Loading the nutriscore
         self.load_nutriscore()
 
         for prod_key in list(self.my_products.keys()):
             prod_to_load = self.my_products[prod_key]
 
-            # Produits
+            # Loading Products
             if self.read_produits(prod_key) == False:
                 nut_id = self.check_product(
                     "nut_id",
@@ -59,10 +61,7 @@ class Load:
                 add_product = f"INSERT INTO produits SET prod_id='{prod_key}', prod_nom='{prod_to_load['product_name_fr']}', prod_url='{prod_to_load['url']}', nut_id='{nut_id}'"
 
                 self.insert(add_product)
-            #     self.views.display_text(
-            #         f"""
-            # Le produit : {prod_to_load['product_name_fr']} est entré en base."""
-            #     )
+
             else:
                 pass
 
@@ -148,8 +147,8 @@ class Load:
         """ I Check if a value is in a table, if yes I return its id """
         query = f"SELECT {id_target} FROM {table_target} WHERE {column_target} LIKE '{product_target}'"
 
-        self.mycursor.execute(query)
-        result = self.mycursor.fetchall()
+        self.connection.execute(query)
+        result = self.connection.fetchall()
 
         if len(result) < 1:
             return False
@@ -160,14 +159,14 @@ class Load:
                 return id
 
     def insert(self, query):
-        """ """
-        self.mycursor.execute(query)
-        self.database.connection.commit()
+        """ I insert data into the table. """
+        self.connection.execute(query)
+        self.connection.commit()
 
     def search_id(self, query):
         """ """
-        self.mycursor.execute(query)
-        rows = self.mycursor.fetchall()
+        self.connection.execute(query)
+        rows = self.connection.fetchall()
         return rows
 
 
@@ -176,6 +175,9 @@ class Load:
 if __name__ == "__main__":
     loader = Load()
 
+    ### Tests of methods ###
     # loader.open_json()
-    # print(loader.load_data())
     # loader.load_nutriscore()
+
+
+    print(loader.load_data())
