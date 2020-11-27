@@ -1,4 +1,3 @@
-# from model import Model
 
 
 class Views:
@@ -6,13 +5,6 @@ class Views:
 
     def __init__(self):
         pass
-        # self.requests = Model()
-
-    # def menu_cat(self):
-    #     """ I display the categories menu. """
-
-    #     for n in range(len(self.requests.cat_popular())):
-    #         print(f" {self.requests.cat_popular()[n][2]+1} - {self.requests.cat_popular()[n][1]}")
 
     # def list_prod(self, cat_id):
     #     """ I display the list of products. """
@@ -28,7 +20,9 @@ class Views:
             """
             ========================================
             ========================================
+            =======                          =======
             =======      THE SUBSTITUTE      =======
+            =======                          =======
             ========================================
             ========================================
             """
@@ -77,12 +71,42 @@ class Views:
 
         return menu
 
-    def display_text(self, text):
+    def app_choice(self):
+        menu = input(
+            f"""
+            0 : Menu principal
+            1 : Chercher un substitut
+            Q : Exit
 
+            Votre choix : """
+        )
+
+        return menu
+
+    def cat_menu(self, cat_choice):
+        menu = input(
+            f"""
+            0 : Menu principal
+            1 : Créer la base de données
+            2 : Créer les tables
+            3 : Effacer toutes les tables
+            4 : Extract
+            5 : Transform
+            6 : Load
+            7 : Extract / Transform / Load
+            Q : Exit
+
+            Votre choix : """
+        )
+
+        return menu
+
+    def display_text(self, text):
+        """ """
         print(f"""              {text}""")
 
     def display_text_error(self, text, error=""):
-
+        """ """
         print(
             f"""
             {text}
