@@ -7,6 +7,7 @@ from extract import Extract
 from transform import Transform
 from load import Load
 from database import Database
+from model import Model
 
 
 class Main:
@@ -19,6 +20,7 @@ class Main:
         self.extraction = Extract()
         self.transform = Transform()
         self.load = Load()
+        self.model = Model()
 
     def main_menu(self):
         self.clear()
@@ -40,7 +42,6 @@ class Main:
 
     def admin_menu(self):
         """ """
-
         self.clear()
         self.views.header_admin()
         option = self.views.admin_choice()
@@ -102,6 +103,30 @@ class Main:
             time.sleep(2)
             self.admin_menu()
 
+
+
+    def app_menu(self):
+        """ I display the categories menu. """
+        self.clear()
+        self.views.header()
+        option = self.views.app_choice()
+
+        if option == "0":
+            self.main_menu()
+        if option == "1":
+            self.clear()
+            self.views.header_admin()
+            self.model.cat_options()
+
+        else:
+            print(
+                """
+            Vous devez taper A ou Q
+            Merci de réessayer."""
+            )
+            time.sleep(2)
+            self.app_menu()
+
     def clear(self):
         """ I clear the terminal. """
         if name == "nt":
@@ -109,12 +134,6 @@ class Main:
         else:
             _ = system("clear")
 
-    # def main_menu(self):
-    #     """ I display the categories menu. """
-    #     self.clear()
-    #     self.views.header()
-    #     self.views.menu_cat()
-    #     self.select_cat()
 
     # def select_cat(self):
     #     self.selected_cat = input("quelle cat ?")
@@ -129,6 +148,7 @@ if __name__ == "__main__":
     main = Main()
 
     # main.main_menu()
-    main.admin_menu()
+    # main.admin_menu()
+    main.app_menu()
 
     # main.etl()
