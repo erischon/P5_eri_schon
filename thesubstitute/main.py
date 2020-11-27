@@ -7,7 +7,7 @@ from extract import Extract
 from transform import Transform
 from load import Load
 from database import Database
-# from model import Model
+from model import Model
 
 
 class Main:
@@ -20,7 +20,7 @@ class Main:
         self.extraction = Extract()
         self.transform = Transform()
         self.load = Load()
-        # self.model = Model()
+        self.model = Model()
 
     def main_menu(self):
         self.clear()
@@ -103,8 +103,6 @@ class Main:
             time.sleep(2)
             self.admin_menu()
 
-
-
     def app_menu(self):
         """ I display the categories menu. """
         self.clear()
@@ -149,7 +147,7 @@ if __name__ == "__main__":
 
     ### Tests of methods ###
     # main.main_menu()
-    main.admin_menu()
-    # main.app_menu()
+    # main.admin_menu()
+    main.app_menu()
 
     # main.etl()
