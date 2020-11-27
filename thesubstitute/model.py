@@ -1,16 +1,18 @@
 from database import Database
 from itertools import chain
+from views import Views
 
 
 class Model:
     """ """
 
     def __init__(self):
+        self.view = Views()
         self.database = Database()
         self.mycursor = self.database.db_connection()
 
     def cat_popular(self):
-        """ I return the list of the 10 most popular categories """
+        """ I return the list of the 10 most popular categories. """
         list_of_tuple = []
 
         query = f"SELECT cat_id FROM prodcat GROUP BY cat_id ORDER BY COUNT(*) DESC LIMIT 10;"
@@ -21,6 +23,13 @@ class Model:
             cat_popular = self.to_list_of_tuple(list_of_tuple, query, n)
 
         return cat_popular
+
+    def cat_options(self):
+        """ I display the categories options. """
+        for n in range(len(self.cat_popular())):
+            self.view.display_text(f" {self.cat_popular()[n][2]+1} - {self.cat_popular()[n][1]}")
+        
+        input ("votre choix")
 
     def product_list(self, cat_id):
         """ I return the list of product for un categorie. """
@@ -100,9 +109,9 @@ if __name__ == "__main__":
     requests = Model()
 
     # print(requests.product_list(11))
-    # print(requests.cat_popular())
+    print(requests.cat_popular())
     # print(requests.product_infos('3268840001008'))
-    print(requests.substitute('11', '3'))
+    # print(requests.substitute('11', '3'))
 
     # query = f"SELECT p.prod_id, p.prod_nom, p.prod_url, s.shop_nom, m.marq_nom FROM produits p, shops s, marques m INNER JOIN prodcat pc, prodshop ps, prodmarq pm ON pc.cat_id = '11' AND pc.prod_id = p.prod_id AND ps.prod_id = p.prod_id AND pm.prod_id = p.prod_id;"
 
