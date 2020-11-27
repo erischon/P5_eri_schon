@@ -1,10 +1,11 @@
-import mysql.connector
+# import mysql.connector
 import time
 
-from config import *
-from mysql.connector import errorcode
+# from config import *
+# from mysql.connector import errorcode
 from tables import Tables
 from views import Views
+from connection import Connection
 
 
 class Database:
@@ -12,10 +13,10 @@ class Database:
 
     def __init__(self):
         """ """
-        self.host = HOST
-        self.user = USER
-        self.password = PASSWORD
-        self.db_name = "PureBeurre"
+        # self.host = HOST
+        # self.user = USER
+        # self.password = PASSWORD
+        # self.db_name = "PureBeurre"
         self.tables = Tables()
         self.view = Views()
         self.mycursor = self.db_connection()
@@ -96,7 +97,7 @@ if __name__ == "__main__":
     database = Database()
 
     # database.connection()
-    # database.db_create()
+    database.db_create()
     # database.tables_create()
     # database.load_nutriscore()
     # database.tables_delete()
