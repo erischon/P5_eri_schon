@@ -30,7 +30,7 @@ class Model:
         """ I display the categories options. """
         print("""
             Choisissez la catégorie dans laquelle se trouve le produit 
-            pour lequel vous chercher un substitut : \n""")
+            pour lequel vous cherchez un substitut : \n""")
         for n in range(len(self.cat_popular())):
             self.view.display_text(f" {self.cat_popular()[n][2]+1} - {self.cat_popular()[n][1]}")
         
