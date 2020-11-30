@@ -1,4 +1,5 @@
-# from database import Database
+import time
+
 from itertools import chain
 from views import Views
 from connection import Connection
@@ -9,16 +10,14 @@ class Model:
 
     def __init__(self):
         self.view = Views()
-        # self.database = Database()
         self.connection = Connection()
-        # self.mycursor = self.database.db_connection()
 
     def cat_popular(self):
         """ I return the list of the 10 most popular categories. """
         list_of_tuple = []
 
         query = f"SELECT cat_id FROM prodcat GROUP BY cat_id ORDER BY COUNT(*) DESC LIMIT 10;"
-        result = self.to_list_of_integer(self.query(query))   
+        result = self.to_list_of_integer(self.query(query)) 
 
         for n in range(len(result)):
             query = (f"SELECT cat_id, cat_nom FROM categories WHERE cat_id = '{result[n]}'")
@@ -26,20 +25,40 @@ class Model:
 
         return cat_popular
 
-    def cat_options(self):
+    def cat_options(self, cat_popular):
         """ I display the categories options. """
         print("""
             Choisissez la catégorie dans laquelle se trouve le produit 
             pour lequel vous cherchez un substitut : \n""")
-        for n in range(len(self.cat_popular())):
-            self.view.display_text(f" {self.cat_popular()[n][2]+1} - {self.cat_popular()[n][1]}")
+        for n in range(len(cat_popular)):
+            self.view.display_text(f" {cat_popular[n][2]+1} - {cat_popular[n][1]}")
         
-        input("""
+        choice = input("""
             votre choix : """)
 
-    def product_list(self, cat_id):
+        if not choice.isdigit():
+            print("""
+            Vous devez entrer un chiffre entre 1 et 10
+            Merci de réessayer."""
+            )
+            time.sleep(2)
+            return self.cat_options(cat_popular)
+        elif int(choice) >= 1 and int(choice) <= 10:
+            cat = cat_popular[int(choice)]
+            return self.product_list(cat_popular[int(choice)])
+        else:
+            print("""
+            Vous devez entrer un chiffre entre 1 et 10
+            Merci de réessayer."""
+            )
+            time.sleep(2)
+            return self.cat_options(cat_popular)
+
+   def product_list(self, category):
         """ I return the list of product for un categorie. """
         list_of_tuple = []
+
+        cat_id, cat_nom, n = category
 
         query = f"SELECT prod_id FROM prodcat WHERE cat_id = '{cat_id}';"
         result = self.to_list_of_integer(self.query(query))
@@ -49,6 +68,38 @@ class Model:
             prod_list = self.to_list_of_tuple(list_of_tuple, query, n)
 
         return prod_list
+
+    def prod_options(self, prod_list):
+        """ I display the categories options. """
+        print("""
+            Choisissez la catégorie dans laquelle se trouve le produit 
+            pour lequel vous cherchez un substitut : \n""")
+        for n in range(len(cat_popular)):
+            self.view.display_text(f" {cat_popular[n][2]+1} - {cat_popular[n][1]}")
+        
+        choice = input("""
+            votre choix : """)
+
+        if not choice.isdigit():
+            print("""
+            Vous devez entrer un chiffre entre 1 et 10
+            Merci de réessayer."""
+            )
+            time.sleep(2)
+            return self.cat_options(cat_popular)
+        elif int(choice) >= 1 and int(choice) <= 10:
+            cat = cat_popular[int(choice)]
+            print(cat)
+            return cat
+        else:
+            print("""
+            Vous devez entrer un chiffre entre 1 et 10
+            Merci de réessayer."""
+            )
+            time.sleep(2)
+            return self.cat_options(cat_popular)
+
+ 
 
     def product_infos(self, prod_id):
         """ I return all the infos for a product. """
@@ -87,7 +138,7 @@ class Model:
     ########## Methods ########## ########## ########## ##########
 
     def query(self, query):
-        """ """
+        """ I execute a request and return a result. """
         self.connection.execute(query)
         return self.connection.fetchall() 
 
@@ -114,10 +165,17 @@ if __name__ == "__main__":
     model = Model()
 
     ### Tests of methods ###
-    # print(model.cat_popular())
-    print(model.cat_options())
+    print(model.cat_popular())
+    # print(model.cat_options())
 
     # print(requests.product_list(11))
+
+
+    model.product_list((4, 'eaux de sources', 6))
+
+
+
+
 
     # print(requests.product_infos('3268840001008'))
     # print(requests.substitute('11', '3'))
