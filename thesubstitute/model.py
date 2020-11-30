@@ -44,8 +44,9 @@ class Model:
             time.sleep(2)
             return self.cat_options(cat_popular)
         elif int(choice) >= 1 and int(choice) <= 10:
-            cat = cat_popular[int(choice)]
-            return self.product_list(cat_popular[int(choice)])
+            print(int(choice)-1)
+            cat = cat_popular[int(choice)-1]
+            return self.product_list(cat)
         else:
             print("""
             Vous devez entrer un chiffre entre 1 et 10
@@ -54,10 +55,9 @@ class Model:
             time.sleep(2)
             return self.cat_options(cat_popular)
 
-   def product_list(self, category):
+    def product_list(self, category):
         """ I return the list of product for un categorie. """
         list_of_tuple = []
-
         cat_id, cat_nom, n = category
 
         query = f"SELECT prod_id FROM prodcat WHERE cat_id = '{cat_id}';"
@@ -67,39 +67,38 @@ class Model:
             query = (f"SELECT prod_id, prod_nom FROM produits WHERE prod_id = '{result[n]}'")
             prod_list = self.to_list_of_tuple(list_of_tuple, query, n)
 
-        return prod_list
+        print(prod_list)
+        return self.prod_options(prod_list)
 
     def prod_options(self, prod_list):
         """ I display the categories options. """
         print("""
-            Choisissez la catégorie dans laquelle se trouve le produit 
-            pour lequel vous cherchez un substitut : \n""")
-        for n in range(len(cat_popular)):
-            self.view.display_text(f" {cat_popular[n][2]+1} - {cat_popular[n][1]}")
+            Choisissez le produit pour lequel 
+            vous cherchez un substitut : \n""")
+        for n in range(len(prod_list)):
+            self.view.display_text(f" {prod_list[n][2]+1} - {prod_list[n][1]}")
         
         choice = input("""
             votre choix : """)
 
         if not choice.isdigit():
             print("""
-            Vous devez entrer un chiffre entre 1 et 10
+            Vous devez entrer un chiffre
             Merci de réessayer."""
             )
             time.sleep(2)
-            return self.cat_options(cat_popular)
-        elif int(choice) >= 1 and int(choice) <= 10:
-            cat = cat_popular[int(choice)]
-            print(cat)
-            return cat
+            return self.prod_options(prod_list)
+        elif int(choice) >= 1 and int(choice) <= len(prod_list):
+            prod = prod_list[int(choice)-1]
+            print(prod)
+            return prod
         else:
             print("""
-            Vous devez entrer un chiffre entre 1 et 10
+            Vous devez entrer un chiffre de la liste
             Merci de réessayer."""
             )
             time.sleep(2)
-            return self.cat_options(cat_popular)
-
- 
+            return self.prod_options(prod_list)
 
     def product_infos(self, prod_id):
         """ I return all the infos for a product. """
@@ -165,18 +164,14 @@ if __name__ == "__main__":
     model = Model()
 
     ### Tests of methods ###
-    print(model.cat_popular())
+    # print(model.cat_popular())
     # print(model.cat_options())
-
-    # print(requests.product_list(11))
-
-
     model.product_list((4, 'eaux de sources', 6))
 
 
 
 
-
+    # print(requests.product_list(11))
     # print(requests.product_infos('3268840001008'))
     # print(requests.substitute('11', '3'))
 
