@@ -255,17 +255,5 @@ if __name__ == "__main__":
     print(model.cat_options())
     # model.product_list((4, 'eaux de sources', 6))
     # model.sub_options([(3268840001008, 'eau cristalline', 1), (7613036249928, 'eau minérale', 1), (3057640257773, 'eau minérale naturelle', 1), (8002270014901, 'eau minérale naturelle avec adjonction de gaz carbonique', 1), (7613035974685, 'hépar', 1)])
-
-
-
-
-    # print(requests.product_list(11))
-    # print(requests.product_infos('3268840001008'))
-    # print(requests.substitute('11', '3'))
-
-    # query = f"SELECT p.prod_id, p.prod_nom, p.prod_url, s.shop_nom, m.marq_nom FROM produits p, shops s, marques m INNER JOIN prodcat pc, prodshop ps, prodmarq pm ON pc.cat_id = '11' AND pc.prod_id = p.prod_id AND ps.prod_id = p.prod_id AND pm.prod_id = p.prod_id;"
-
-    # SELECT p.prod_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='{prod_id}' AND p.prod_id = pc.prod_id AND p.nut_id <= '3'
-    # SELECT p.prod_id, p.prod_nom, p.nut_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='11' AND p.prod_id = pc.prod_id AND p.nut_id <= '2' ORDER BY p.nut_id, p.prod_nom ASC;
     
     
