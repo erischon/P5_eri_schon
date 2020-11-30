@@ -116,4 +116,3 @@ class Tables:
 if __name__ == "__main__":
     tables = Tables()
 
-# database.connection()
