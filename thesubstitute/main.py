@@ -166,5 +166,3 @@ if __name__ == "__main__":
     main.main_menu()
     # main.admin_menu()
     # main.front_menu()
-
-    # main.etl()
