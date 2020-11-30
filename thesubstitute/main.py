@@ -7,7 +7,7 @@ from extract import Extract
 from transform import Transform
 from load import Load
 from database import Database
-# from model import Model
+from model import Model
 
 
 class Main:
@@ -20,7 +20,7 @@ class Main:
         self.extraction = Extract()
         self.transform = Transform()
         self.load = Load()
-        # self.model = Model()
+        self.model = Model()
 
     def main_menu(self):
         self.clear()
@@ -29,6 +29,8 @@ class Main:
 
         if choice == "A" or choice == "a":
             self.admin_menu()
+        if choice == "B" or choice == "b":
+            self.front_menu()
         elif choice == "Q" or choice == "q":
             sys.exit
         else:
@@ -103,21 +105,34 @@ class Main:
             time.sleep(2)
             self.admin_menu()
 
-
-
-    def app_menu(self):
+    def front_menu(self):
         """ I display the categories menu. """
         self.clear()
-        self.views.header()
+        self.views.header_front()
         option = self.views.app_choice()
 
         if option == "0":
             self.main_menu()
         if option == "1":
             self.clear()
-            self.views.header_admin()
-            self.model.cat_options()
-
+            self.views.header_front()
+            cat = self.model.cat_options(self.model.cat_popular())
+            self.clear()
+            self.views.header_front()
+            prod_list, cat_id = self.model.product_list(cat)
+            cat_id, prod = self.model.prod_options(prod_list, cat_id)
+            self.clear()
+            self.views.header_front()            
+            sub_list = self.model.sub_list(cat_id, prod)
+            prod_id = self.model.sub_options(sub_list)
+            if prod_id == None:
+                self.front_menu()
+            self.clear()
+            self.views.header_front()
+            self.model.product_infos(prod_id)
+            self.front_menu()
+        elif option == "Q" or option == "q":
+            sys.exit
         else:
             print(
                 """
@@ -125,7 +140,7 @@ class Main:
             Merci de réessayer."""
             )
             time.sleep(2)
-            self.app_menu()
+            self.front_menu()
 
     def clear(self):
         """ I clear the terminal. """
@@ -148,8 +163,8 @@ if __name__ == "__main__":
     main = Main()
 
     ### Tests of methods ###
-    # main.main_menu()
-    main.admin_menu()
-    # main.app_menu()
+    main.main_menu()
+    # main.admin_menu()
+    # main.front_menu()
 
     # main.etl()
