@@ -3,6 +3,7 @@ import time
 from itertools import chain
 from views import Views
 from connection import Connection
+from main import Main
 
 
 class Model:
@@ -10,6 +11,7 @@ class Model:
 
     def __init__(self):
         self.view = Views()
+        self.main = Main()
         self.connection = Connection()
 
     #######################################
@@ -181,14 +183,36 @@ class Model:
         result = self.query(query_nutri)
         nut_type = result[0][0]
 
-        prod_infos = {'prod_id':prod_id, 'prod_name': nom, 'prod_url': url, 'prod_nut':nutriscore, 'prod_shop': shop_name, 'prod_marq': marque_name }
+        prod_infos = {'prod_id':prod_id, 'prod_name': nom, 'prod_url': url, 'prod_nut':nut_type, 'prod_shop': shop_name, 'prod_marq': marque_name }
 
         return self.sub_prod_infos(prod_infos)
     
     def sub_prod_infos(self, prod_infos):
         """ """
-        print(prod_infos)
+        print(f"""
+            Nom du produit : {prod_infos['prod_name']}
+            Nutriscore : {prod_infos['prod_nut']}
+            Code du produit : {prod_infos['prod_id']}
+            Lien vers sa page sur OpenFoodFacts : 
+            {prod_infos['prod_url']} 
+        """)
+        
+        print("""
+            C'est un produit :""")
+        for marq in prod_infos['prod_marq']:
+            print(f"""
+            - {marq}""")
 
+        print("""
+            Que vous pouvez trouver chez :\n""")
+        for shop in prod_infos['prod_shop']:
+            print(f"            - {shop}")
+        
+        print("\n           ====================\n")
+
+        self.view.pause()
+        self.main.fo_menu()
+        # choice = input("Retour au menu principal (tapez sur entrée)")
 
     ########## Methods ########## ########## ########## ##########
 
