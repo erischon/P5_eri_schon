@@ -48,7 +48,6 @@ class Model:
             time.sleep(2)
             return self.cat_options(cat_popular)
         elif int(choice) >= 1 and int(choice) <= 10:
-            print(int(choice)-1)
             cat = cat_popular[int(choice)-1]
             return self.product_list(cat)
         else:
@@ -119,7 +118,7 @@ class Model:
         prod_nut = self.to_list_of_integer(self.query(query_sub))
         prod_nut = prod_nut[0]
 
-        query_sub = f"SELECT p.prod_id, p.prod_nom, p.nut_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='{cat_id}' AND p.prod_id = pc.prod_id AND p.nut_id <= '{prod_nut}' ORDER BY p.nut_id, p.prod_nom ASC LIMIT 5;"
+        query_sub = f"SELECT p.prod_id, p.prod_nom, p.nut_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='{cat_id}' AND p.prod_id = pc.prod_id AND p.nut_id < '{prod_nut}' ORDER BY p.nut_id, p.prod_nom ASC LIMIT 5;"
         result = self.query(query_sub)
 
         return self.sub_options(result)
