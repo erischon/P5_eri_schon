@@ -12,6 +12,10 @@ class Model:
         self.view = Views()
         self.connection = Connection()
 
+    #######################################
+    ###### Categories list of choice ######
+    #######################################
+
     def cat_popular(self):
         """ I return the list of the 10 most popular categories. """
         list_of_tuple = []
@@ -55,6 +59,10 @@ class Model:
             time.sleep(2)
             return self.cat_options(cat_popular)
 
+    #####################################
+    ###### Products list of choice ######
+    #####################################
+
     def product_list(self, category):
         """ I return the list of product for un categorie. """
         list_of_tuple = []
@@ -67,11 +75,10 @@ class Model:
             query = (f"SELECT prod_id, prod_nom FROM produits WHERE prod_id = '{result[n]}'")
             prod_list = self.to_list_of_tuple(list_of_tuple, query, n)
 
-        print(prod_list)
-        return self.prod_options(prod_list)
+        return self.prod_options(prod_list, cat_id)
 
-    def prod_options(self, prod_list):
-        """ I display the categories options. """
+    def prod_options(self, prod_list, cat_id):
+        """ I display the products for category. """
         print("""
             Choisissez le produit pour lequel 
             vous cherchez un substitut : \n""")
@@ -90,8 +97,7 @@ class Model:
             return self.prod_options(prod_list)
         elif int(choice) >= 1 and int(choice) <= len(prod_list):
             prod = prod_list[int(choice)-1]
-            print(prod)
-            return prod
+            return self.sub_list(cat_id, prod)
         else:
             print("""
             Vous devez entrer un chiffre de la liste
@@ -99,6 +105,58 @@ class Model:
             )
             time.sleep(2)
             return self.prod_options(prod_list)
+
+    ########################################
+    ###### Substitutes list of choice ######
+    ########################################
+
+    def sub_list(self, cat_id, prod):
+        """ I create a list of substitute for a product """
+        list_of_tuple = []
+        prod_id, prod_nom, n = prod
+
+        query_sub = f"SELECT nut_id FROM produits WHERE prod_id ='{prod_id}';"
+        prod_nut = self.to_list_of_integer(self.query(query_sub))
+        prod_nut = prod_nut[0]
+
+        query_sub = f"SELECT p.prod_id, p.prod_nom, p.nut_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='{cat_id}' AND p.prod_id = pc.prod_id AND p.nut_id <= '{prod_nut}' ORDER BY p.nut_id, p.prod_nom ASC LIMIT 5;"
+        result = self.query(query_sub)
+
+        return self.sub_options(result)
+
+    def sub_options(self, sub_list):
+        """ I display the substitutes options for a product. """
+        print("""
+            Choisissez votre substitut : \n""")
+
+        for n in range(len(sub_list)):
+            prod_id, prod_name, prod_nut = sub_list[n]
+            self.view.display_text(f" {n+1} - {prod_name}")
+ 
+        choice = input("""
+            votre choix : """)
+
+        if not choice.isdigit():
+            print("""
+            Vous devez entrer un chiffre
+            Merci de réessayer."""
+            )
+            time.sleep(2)
+            return self.sub_options(sub_list)
+        elif int(choice) >= 1 and int(choice) <= len(sub_list):
+            prod_id, prod_nom, nut_id = sub_list[int(choice)-1]
+            return self.product_infos(prod_id)
+        else:
+            print("""
+            Vous devez entrer un chiffre de la liste
+            Merci de réessayer."""
+            )
+            time.sleep(2)
+            return self.prod_options(prod_list)
+
+    ###############################################
+    ###### Substitution product informations ######
+    ###############################################
 
     def product_infos(self, prod_id):
         """ I return all the infos for a product. """
@@ -125,14 +183,12 @@ class Model:
 
         prod_infos = {'prod_id':prod_id, 'prod_name': nom, 'prod_url': url, 'prod_nut':nutriscore, 'prod_shop': shop_name, 'prod_marq': marque_name }
 
-        return prod_infos
-
-    def substitute(self, cat_id, prod_nut):
+        return self.sub_prod_infos(prod_infos)
+    
+    def sub_prod_infos(self, prod_infos):
         """ """
-        query_sub = f"SELECT p.prod_id, p.prod_nom, p.nut_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='{cat_id}' AND p.prod_id = pc.prod_id AND p.nut_id <= '{prod_nut}' ORDER BY p.nut_id, p.prod_nom ASC LIMIT 5;"
-        result = self.query(query_sub)
+        print(prod_infos)
 
-        print(result)
 
     ########## Methods ########## ########## ########## ##########
 
@@ -166,7 +222,8 @@ if __name__ == "__main__":
     ### Tests of methods ###
     # print(model.cat_popular())
     # print(model.cat_options())
-    model.product_list((4, 'eaux de sources', 6))
+    # model.product_list((4, 'eaux de sources', 6))
+    model.sub_options([(3268840001008, 'eau cristalline', 1), (7613036249928, 'eau minérale', 1), (3057640257773, 'eau minérale naturelle', 1), (8002270014901, 'eau minérale naturelle avec adjonction de gaz carbonique', 1), (7613035974685, 'hépar', 1)])
 
 
 
