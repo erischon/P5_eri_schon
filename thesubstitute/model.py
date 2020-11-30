@@ -49,7 +49,8 @@ class Model:
             return self.cat_options(cat_popular)
         elif int(choice) >= 1 and int(choice) <= 10:
             cat = cat_popular[int(choice)-1]
-            return self.product_list(cat)
+            # return self.product_list(cat)
+            return cat
         else:
             print("""
             Vous devez entrer un chiffre entre 1 et 10
@@ -74,7 +75,8 @@ class Model:
             query = (f"SELECT prod_id, prod_nom FROM produits WHERE prod_id = '{result[n]}'")
             prod_list = self.to_list_of_tuple(list_of_tuple, query, n)
 
-        return self.prod_options(prod_list, cat_id)
+        # return self.prod_options(prod_list, cat_id)
+        return prod_list, cat_id
 
     def prod_options(self, prod_list, cat_id):
         """ I display the products for category. """
@@ -96,7 +98,9 @@ class Model:
             return self.prod_options(prod_list)
         elif int(choice) >= 1 and int(choice) <= len(prod_list):
             prod = prod_list[int(choice)-1]
-            return self.sub_list(cat_id, prod)
+            # return self.sub_list(cat_id, prod)
+            return cat_id, prod
+
         else:
             print("""
             Vous devez entrer un chiffre de la liste
@@ -121,10 +125,17 @@ class Model:
         query_sub = f"SELECT p.prod_id, p.prod_nom, p.nut_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='{cat_id}' AND p.prod_id = pc.prod_id AND p.nut_id < '{prod_nut}' ORDER BY p.nut_id, p.prod_nom ASC LIMIT 5;"
         result = self.query(query_sub)
 
-        return self.sub_options(result)
+        # return self.sub_options(result)
+        return result
 
     def sub_options(self, sub_list):
         """ I display the substitutes options for a product. """
+
+        if sub_list == []:
+            self.view.display_text("Il n'y a pas mieux dans notre base, désolé.")
+            time.sleep(2)
+            return None
+        
         print("""
             Choisissez votre substitut : \n""")
 
@@ -144,7 +155,8 @@ class Model:
             return self.sub_options(sub_list)
         elif int(choice) >= 1 and int(choice) <= len(sub_list):
             prod_id, prod_nom, nut_id = sub_list[int(choice)-1]
-            return self.product_infos(prod_id)
+            # return self.product_infos(prod_id)
+            return prod_id
         else:
             print("""
             Vous devez entrer un chiffre de la liste
@@ -185,7 +197,7 @@ class Model:
         return self.sub_prod_infos(prod_infos)
     
     def sub_prod_infos(self, prod_infos):
-        """ """
+        """ I display the infos of a product. """
         print(f"""
             Nom du produit : {prod_infos['prod_name']}
             Nutriscore : {prod_infos['prod_nut']}
@@ -193,22 +205,21 @@ class Model:
             Lien vers sa page sur OpenFoodFacts : 
             {prod_infos['prod_url']} 
         """)
-        
-        print("""
-            C'est un produit :""")
+
+        self.view.display_text("====================") 
+
+        self.view.display_text("C'est un produit :")
         for marq in prod_infos['prod_marq']:
-            print(f"""
-            - {marq}""")
+            self.view.display_text(f"- {marq}")
 
-        print("""
-            Que vous pouvez trouver chez :\n""")
+        self.view.display_text("")
+        self.view.display_text("Que vous pouvez trouver chez :")
         for shop in prod_infos['prod_shop']:
-            print(f"            - {shop}")
+            self.view.display_text(f"- {shop}")
         
-        print("\n           ====================\n")
+        self.view.display_text("====================") 
 
-        self.view.pause()
-        # choice = input("Retour au menu principal (tapez sur entrée)")
+        return self.view.pause()
 
     ########## Methods ########## ########## ########## ##########
 
@@ -241,9 +252,9 @@ if __name__ == "__main__":
 
     ### Tests of methods ###
     # print(model.cat_popular())
-    # print(model.cat_options())
+    print(model.cat_options())
     # model.product_list((4, 'eaux de sources', 6))
-    model.sub_options([(3268840001008, 'eau cristalline', 1), (7613036249928, 'eau minérale', 1), (3057640257773, 'eau minérale naturelle', 1), (8002270014901, 'eau minérale naturelle avec adjonction de gaz carbonique', 1), (7613035974685, 'hépar', 1)])
+    # model.sub_options([(3268840001008, 'eau cristalline', 1), (7613036249928, 'eau minérale', 1), (3057640257773, 'eau minérale naturelle', 1), (8002270014901, 'eau minérale naturelle avec adjonction de gaz carbonique', 1), (7613035974685, 'hépar', 1)])
 
 
 
