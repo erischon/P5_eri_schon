@@ -103,7 +103,7 @@ class Main:
             time.sleep(2)
             self.admin_menu()
 
-    def app_menu(self):
+    def fo_menu(self):
         """ I display the categories menu. """
         self.clear()
         self.views.header()
@@ -114,7 +114,8 @@ class Main:
         if option == "1":
             self.clear()
             self.views.header_admin()
-            self.model.cat_options()
+            cat_popular = self.model.cat_popular()
+            self.model.cat_options(cat_popular)
 
         else:
             print(
@@ -148,6 +149,6 @@ if __name__ == "__main__":
     ### Tests of methods ###
     # main.main_menu()
     # main.admin_menu()
-    main.app_menu()
+    main.fo_menu()
 
     # main.etl()
