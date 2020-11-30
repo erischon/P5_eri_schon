@@ -178,6 +178,3 @@ if __name__ == "__main__":
     ### Tests of methods ###
     # loader.open_json()
     # loader.load_nutriscore()
-
-
-    print(loader.load_data())
