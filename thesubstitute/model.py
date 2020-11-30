@@ -3,7 +3,6 @@ import time
 from itertools import chain
 from views import Views
 from connection import Connection
-from main import Main
 
 
 class Model:
@@ -11,7 +10,6 @@ class Model:
 
     def __init__(self):
         self.view = Views()
-        self.main = Main()
         self.connection = Connection()
 
     #######################################
@@ -211,7 +209,6 @@ class Model:
         print("\n           ====================\n")
 
         self.view.pause()
-        self.main.fo_menu()
         # choice = input("Retour au menu principal (tapez sur entrée)")
 
     ########## Methods ########## ########## ########## ##########
