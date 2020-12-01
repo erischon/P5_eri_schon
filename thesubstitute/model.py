@@ -218,7 +218,6 @@ class Model:
             "prod_marq": marque_name,
         }
 
-        # return self.sub_prod_infos(prod_infos)
         return prod_infos
 
     def sub_prod_infos(self, prod_infos):
@@ -246,7 +245,7 @@ class Model:
 
         self.view.display_text("====================")
 
-        return self.view.pause()
+        # return self.view.pause()
 
     ########## Methods ########## ########## ########## ##########
 
