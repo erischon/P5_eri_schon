@@ -152,7 +152,7 @@ class Load:
         if len(result) < 1:
             return False
         elif len(result) > 1:
-            return print("ca va pas")
+            return print("HUm, something going wrong...")
         else:
             for id in chain.from_iterable(result):
                 return id
