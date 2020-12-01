@@ -1,8 +1,5 @@
-# import mysql.connector
 import time
 
-# from config import *
-# from mysql.connector import errorcode
 from tables import Tables
 from views import Views
 from connection import Connection
@@ -26,12 +23,10 @@ class Database:
                     self.db_name
                 )
             )
-            self.view.display_text(
-            "REUSSITE : la base est crée.")
+            self.view.display_text("REUSSITE : la base est crée.")
 
         except:
-            self.view.display_text_error(
-            "ECHEC : la base n'est pas crée.")
+            self.view.display_text_error("ECHEC : la base n'est pas crée.")
 
     def tables_create(self):
         """ """
@@ -41,11 +36,11 @@ class Database:
             try:
                 self.connection.execute(table_description)
                 self.view.display_text(
-            f"REUSSITE : la table {table_name.upper()} est active.")
+                    f"REUSSITE : la table {table_name.upper()} est active."
+                )
 
             except:
-                self.view.display_text_error(
-            "ECHEC : les tables ne sont pas crées.")
+                self.view.display_text_error("ECHEC : les tables ne sont pas crées.")
 
     def tables_delete(self):
         """ """
@@ -61,12 +56,14 @@ class Database:
                 query = f"TRUNCATE TABLE {self.tables.tab_names[n]};"
                 self.connection.execute(query)
                 self.view.display_text(
-            f"REUSSITE : la table {self.tables.tab_names[n].upper()} est remise à zéro.")
+                    f"REUSSITE : la table {self.tables.tab_names[n].upper()} est remise à zéro."
+                )
                 time.sleep(1)
 
             except:
                 self.view.display_text_error(
-            "ECHEC : problème lors du delete des tables")
+                    "ECHEC : problème lors du delete des tables"
+                )
 
 
 if __name__ == "__main__":
