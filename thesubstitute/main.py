@@ -133,7 +133,7 @@ class Main:
             self.views.header_front()
             prod_infos = self.model.product_infos(prod_id)
             self.model.sub_prod_infos(prod_infos)
-            if self.save.menu_save() == True:
+            if self.save.option_save() == True:
                 if self.save.saving(prod_id) != False:
                     self.views.display_text("Ce substitut a été sauvegardé.")
             self.views.pause()
@@ -147,9 +147,10 @@ class Main:
             self.clear()
             self.views.header_front()
             self.save.save_display(save_id)
+            if self.save.option_delete() == True:
+                self.save.save_delete(save_id)
             self.views.pause()
             self.front_menu()
-
 
         elif option == "Q" or option == "q":
             sys.exit
