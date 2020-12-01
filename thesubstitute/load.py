@@ -13,7 +13,6 @@ class Load:
         self.cat = ModCategories()
         self.marq = ModMarques()
         self.shop = ModShops()
-        # self.database = Database()
         self.views = Views()
         self.connection = Connection()
         self.open_json()
