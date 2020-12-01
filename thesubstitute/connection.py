@@ -15,7 +15,7 @@ class Connection:
 
         self._connect = self.db_connection()
         self._cursor = self._connect.cursor()
-        
+
     def db_connection(self):
         """ """
         try:
