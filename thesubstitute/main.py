@@ -8,6 +8,7 @@ from transform import Transform
 from load import Load
 from database import Database
 from model import Model
+from save import Save
 
 
 class Main:
@@ -21,6 +22,7 @@ class Main:
         self.transform = Transform()
         self.load = Load()
         self.model = Model()
+        self.save = Save()
 
     def main_menu(self):
         self.clear()
@@ -131,8 +133,24 @@ class Main:
             self.views.header_front()
             prod_infos = self.model.product_infos(prod_id)
             self.model.sub_prod_infos(prod_infos)
+            if self.save.menu_save() == True:
+                if self.save.saving(prod_id) != False:
+                    self.views.display_text("Ce substitut a été sauvegardé.")
             self.views.pause()
             self.front_menu()
+        elif option == '2':
+            self.clear()
+            self.views.header_front()
+            save_id = self.save.save_listing()
+            if save_id == '0':
+                self.front_menu()                
+            self.clear()
+            self.views.header_front()
+            self.save.save_display(save_id)
+            self.views.pause()
+            self.front_menu()
+
+
         elif option == "Q" or option == "q":
             sys.exit
         else:
@@ -156,6 +174,6 @@ if __name__ == "__main__":
     main = Main()
 
     ### Tests of methods ###
-    main.main_menu()
+    # main.main_menu()
     # main.admin_menu()
-    # main.front_menu()
+    main.front_menu()
