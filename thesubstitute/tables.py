@@ -12,7 +12,7 @@ class Tables:
             "categories",
             "shops",
             "marques",
-            "produits"
+            "produits",
         )
 
         self.TABLES = {}
@@ -115,4 +115,3 @@ class Tables:
 
 if __name__ == "__main__":
     tables = Tables()
-
