@@ -89,6 +89,7 @@ class Views:
             f"""
             0 : Menu principal
             1 : Chercher un substitut
+            2 : Vos substituts sauvegardés
             Q : Exit
 
             Votre choix : """
