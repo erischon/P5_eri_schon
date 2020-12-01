@@ -3,6 +3,7 @@ import time
 
 from connection import Connection
 from model import Model
+from views import Views
 
 
 class Save:
@@ -11,6 +12,7 @@ class Save:
     def __init__(self):
         self.connection = Connection()
         self.model = Model()
+        self.view = Views()
 
     def saving(self, prod_id):
         """ I save the substitut into the sauvegardes table. """
@@ -28,11 +30,13 @@ class Save:
 
     def save_listing(self):
         """ I display the list of all the save. """
-        print(
+        self.view.display_text(
             """
             Choisissez la sauvegarde
             que vous souhaitez visualiser : \n"""
         )
+        self.view.display_text("0 - Retour à la page précédente")
+        
         query = f"SELECT * FROM sauvegardes"
         self.connection.execute(query)
         result = self.connection.fetchall()
@@ -40,7 +44,7 @@ class Save:
         for n in range(len(result)):
             save_id, prod_id, datetime = result[n]
             infos = self.model.product_infos(prod_id)
-            print(f"{save_id} - Substitut : {infos['prod_name']}, sauvegardé le {datetime}")
+            self.view.display_text(f"{n+1} - Substitut : {infos['prod_name']}, sauvegardé le {datetime}")
 
         choice = input(
             """
@@ -55,8 +59,10 @@ class Save:
             )
             time.sleep(2)
             return self.save_listing()
+        elif choice == '0':
+            return
         elif int(choice) >= 1 and int(choice) <= (len(result)):
-            save_id = choice
+            save_id = result[int(choice)-1][0]
             return save_id
         else:
             print(
@@ -103,6 +109,6 @@ if __name__ == "__main__":
     ### Tests of methods ###
     # save.saving('3229820019307')
     # print(save._check('3229820019307'))
-    # save.save_listing()
+    save.save_listing()
     # save.save_display('1')
     # save.save_delete('1')
