@@ -1,14 +1,21 @@
+import datetime
 from connection import Connection
 
 class Save:
     """ """
 
     def __init__(self):
-        pass
+        self.connection = Connection()
 
     def saving(self, prod_id):
         """ """
-        pass
+        try:
+            query = f"INSERT INTO sauvegardes SET save_time='{datetime.datetime.now()}', prod_id='{prod_id}'"
+            print(query)
+            self.connection.execute(query)
+            self.connection.commit()
+        except:
+            print("La sauvegarde n'a pas pu se faire.") 
 
     def sav_listing(self):
         """ """
