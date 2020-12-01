@@ -17,13 +17,12 @@ class Save:
     def menu_save(self):
         option = input("\n              Sauvegarder ce substitut (o/n) ? : ")
 
-        if option == 'O' or option == 'o':
+        if option == "O" or option == "o":
             return True
-        elif option == 'N' or option == 'n':
+        elif option == "N" or option == "n":
             return False
         else:
             print("Vous devez entrer un o ou un n")
-
 
     def saving(self, prod_id):
         """ I save the substitut into the sauvegardes table. """
@@ -38,7 +37,7 @@ class Save:
                 self.view.display_text("La sauvegarde n'a pas pu se faire.")
         else:
             self.view.display_text(check)
-            return False 
+            return False
 
     def save_listing(self):
         """ I display the list of all the save. """
@@ -48,7 +47,7 @@ class Save:
             que vous souhaitez visualiser : \n"""
         )
         self.view.display_text("0 - Retour à la page précédente")
-        
+
         query = f"SELECT * FROM sauvegardes"
         self.connection.execute(query)
         result = self.connection.fetchall()
@@ -56,7 +55,9 @@ class Save:
         for n in range(len(result)):
             save_id, prod_id, datetime = result[n]
             infos = self.model.product_infos(prod_id)
-            self.view.display_text(f"{n+1} - Substitut : {infos['prod_name']}, sauvegardé le {datetime}")
+            self.view.display_text(
+                f"{n+1} - Substitut : {infos['prod_name']}, sauvegardé le {datetime}"
+            )
 
         choice = input(
             """
@@ -71,10 +72,10 @@ class Save:
             )
             time.sleep(2)
             return self.save_listing()
-        elif choice == '0':
-            return '0'
+        elif choice == "0":
+            return "0"
         elif int(choice) >= 1 and int(choice) <= (len(result)):
-            save_id = result[int(choice)-1][0]
+            save_id = result[int(choice) - 1][0]
             return save_id
         else:
             print(
@@ -115,12 +116,13 @@ class Save:
         else:
             return "Vous avez déjà sauvegardé ce substitut."
 
+
 if __name__ == "__main__":
     save = Save()
 
     ### Tests of methods ###
     # save.saving('3229820019307')
     # print(save._check('3229820019307'))
-    save.save_listing()
+    # save.save_listing()
     # save.save_display('1')
     # save.save_delete('1')
