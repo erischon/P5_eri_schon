@@ -14,6 +14,17 @@ class Save:
         self.model = Model()
         self.view = Views()
 
+    def menu_save(self):
+        option = input("\n              Sauvegarder ce substitut (o/n) ? : ")
+
+        if option == 'O' or option == 'o':
+            return True
+        elif option == 'N' or option == 'n':
+            return False
+        else:
+            print("Vous devez entrer un o ou un n")
+
+
     def saving(self, prod_id):
         """ I save the substitut into the sauvegardes table. """
         check = self._check(prod_id)
@@ -24,9 +35,10 @@ class Save:
                 self.connection.execute(query)
                 self.connection.commit()
             except:
-                print("La sauvegarde n'a pas pu se faire.")
+                self.view.display_text("La sauvegarde n'a pas pu se faire.")
         else:
-            print(check) 
+            self.view.display_text(check)
+            return False 
 
     def save_listing(self):
         """ I display the list of all the save. """
@@ -60,7 +72,7 @@ class Save:
             time.sleep(2)
             return self.save_listing()
         elif choice == '0':
-            return
+            return '0'
         elif int(choice) >= 1 and int(choice) <= (len(result)):
             save_id = result[int(choice)-1][0]
             return save_id
