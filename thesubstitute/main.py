@@ -122,7 +122,7 @@ class Main:
             prod_list, cat_id = self.model.product_list(cat)
             cat_id, prod = self.model.prod_options(prod_list, cat_id)
             self.clear()
-            self.views.header_front()            
+            self.views.header_front()
             sub_list = self.model.sub_list(cat_id, prod)
             prod_id = self.model.sub_options(sub_list)
             if prod_id == None:
@@ -148,15 +148,6 @@ class Main:
             _ = system("cls")
         else:
             _ = system("clear")
-
-
-    # def select_cat(self):
-    #     self.selected_cat = input("quelle cat ?")
-    #     # self.selected_cat = '11'
-    #     return self.selected_cat
-
-    # def list_of_products(self, cat_id):
-    #     self.views.list_prod(cat_id)
 
 
 if __name__ == "__main__":
