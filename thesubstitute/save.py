@@ -14,7 +14,7 @@ class Save:
         self.model = Model()
         self.view = Views()
 
-    def menu_save(self):
+    def option_save(self):
         option = input("\n              Sauvegarder ce substitut (o/n) ? : ")
 
         if option == "O" or option == "o":
@@ -96,14 +96,25 @@ class Save:
         infos = self.model.product_infos(prod_id)
         self.model.sub_prod_infos(infos)
 
+    def option_delete(self):
+        option = input("\n              Effacer cette sauvegarde (o/n) ? : ")
+
+        if option == "O" or option == "o":
+            return True
+        elif option == "N" or option == "n":
+            return False
+        else:
+            print("Vous devez entrer un o ou un n")
+
     def save_delete(self, save_id):
         """ I delete a save. """
         try:
             query = f"DELETE FROM sauvegardes WHERE save_id='{save_id}'"
             self.connection.execute(query)
             self.connection.commit()
+            self.view.display_text("La sauvegarde a été effacée.")
         except:
-            print("L'effacement de la sauvegade n'a pas pu se faire.")
+            self.view.display_text("L'effacement de la sauvegade n'a pas pu se faire.")
 
     def _check(self, prod_id):
         """ I Check if a value is in a table, if yes I return its id """
