@@ -218,7 +218,8 @@ class Model:
             "prod_marq": marque_name,
         }
 
-        return self.sub_prod_infos(prod_infos)
+        # return self.sub_prod_infos(prod_infos)
+        return prod_infos
 
     def sub_prod_infos(self, prod_infos):
         """ I display the infos of a product. """
