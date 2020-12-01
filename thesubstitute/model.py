@@ -21,38 +21,45 @@ class Model:
         list_of_tuple = []
 
         query = f"SELECT cat_id FROM prodcat GROUP BY cat_id ORDER BY COUNT(*) DESC LIMIT 10;"
-        result = self.to_list_of_integer(self.query(query)) 
+        result = self.to_list_of_integer(self.query(query))
 
         for n in range(len(result)):
-            query = (f"SELECT cat_id, cat_nom FROM categories WHERE cat_id = '{result[n]}'")
+            query = (
+                f"SELECT cat_id, cat_nom FROM categories WHERE cat_id = '{result[n]}'"
+            )
             cat_popular = self.to_list_of_tuple(list_of_tuple, query, n)
 
         return cat_popular
 
     def cat_options(self, cat_popular):
         """ I display the categories options. """
-        print("""
+        print(
+            """
             Choisissez la catégorie dans laquelle se trouve le produit 
-            pour lequel vous cherchez un substitut : \n""")
+            pour lequel vous cherchez un substitut : \n"""
+        )
         for n in range(len(cat_popular)):
             self.view.display_text(f" {cat_popular[n][2]+1} - {cat_popular[n][1]}")
-        
-        choice = input("""
-            votre choix : """)
+
+        choice = input(
+            """
+            votre choix : """
+        )
 
         if not choice.isdigit():
-            print("""
+            print(
+                """
             Vous devez entrer un chiffre entre 1 et 10
             Merci de réessayer."""
             )
             time.sleep(2)
             return self.cat_options(cat_popular)
         elif int(choice) >= 1 and int(choice) <= 10:
-            cat = cat_popular[int(choice)-1]
-            # return self.product_list(cat)
+            cat = cat_popular[int(choice) - 1]
             return cat
         else:
-            print("""
+            print(
+                """
             Vous devez entrer un chiffre entre 1 et 10
             Merci de réessayer."""
             )
@@ -72,37 +79,43 @@ class Model:
         result = self.to_list_of_integer(self.query(query))
 
         for n in range(len(result)):
-            query = (f"SELECT prod_id, prod_nom FROM produits WHERE prod_id = '{result[n]}'")
+            query = (
+                f"SELECT prod_id, prod_nom FROM produits WHERE prod_id = '{result[n]}'"
+            )
             prod_list = self.to_list_of_tuple(list_of_tuple, query, n)
 
-        # return self.prod_options(prod_list, cat_id)
         return prod_list, cat_id
 
     def prod_options(self, prod_list, cat_id):
         """ I display the products for category. """
-        print("""
+        print(
+            """
             Choisissez le produit pour lequel 
-            vous cherchez un substitut : \n""")
+            vous cherchez un substitut : \n"""
+        )
         for n in range(len(prod_list)):
             self.view.display_text(f" {prod_list[n][2]+1} - {prod_list[n][1]}")
-        
-        choice = input("""
-            votre choix : """)
+
+        choice = input(
+            """
+            votre choix : """
+        )
 
         if not choice.isdigit():
-            print("""
+            print(
+                """
             Vous devez entrer un chiffre
             Merci de réessayer."""
             )
             time.sleep(2)
             return self.prod_options(prod_list)
         elif int(choice) >= 1 and int(choice) <= len(prod_list):
-            prod = prod_list[int(choice)-1]
-            # return self.sub_list(cat_id, prod)
+            prod = prod_list[int(choice) - 1]
             return cat_id, prod
 
         else:
-            print("""
+            print(
+                """
             Vous devez entrer un chiffre de la liste
             Merci de réessayer."""
             )
@@ -125,7 +138,6 @@ class Model:
         query_sub = f"SELECT p.prod_id, p.prod_nom, p.nut_id FROM produits p INNER JOIN prodcat pc WHERE pc.cat_id ='{cat_id}' AND p.prod_id = pc.prod_id AND p.nut_id < '{prod_nut}' ORDER BY p.nut_id, p.prod_nom ASC LIMIT 5;"
         result = self.query(query_sub)
 
-        # return self.sub_options(result)
         return result
 
     def sub_options(self, sub_list):
@@ -135,30 +147,35 @@ class Model:
             self.view.display_text("Il n'y a pas mieux dans notre base, désolé.")
             time.sleep(2)
             return None
-        
-        print("""
-            Choisissez votre substitut : \n""")
+
+        print(
+            """
+            Choisissez votre substitut : \n"""
+        )
 
         for n in range(len(sub_list)):
             prod_id, prod_name, prod_nut = sub_list[n]
             self.view.display_text(f" {n+1} - {prod_name}")
- 
-        choice = input("""
-            votre choix : """)
+
+        choice = input(
+            """
+            votre choix : """
+        )
 
         if not choice.isdigit():
-            print("""
+            print(
+                """
             Vous devez entrer un chiffre
             Merci de réessayer."""
             )
             time.sleep(2)
             return self.sub_options(sub_list)
         elif int(choice) >= 1 and int(choice) <= len(sub_list):
-            prod_id, prod_nom, nut_id = sub_list[int(choice)-1]
-            # return self.product_infos(prod_id)
+            prod_id, prod_nom, nut_id = sub_list[int(choice) - 1]
             return prod_id
         else:
-            print("""
+            print(
+                """
             Vous devez entrer un chiffre de la liste
             Merci de réessayer."""
             )
@@ -179,7 +196,7 @@ class Model:
 
         # Select in shops table.
         query_shop = f"SELECT s.shop_nom FROM shops s INNER JOIN prodshop ps ON ps.prod_id = '{prod_id}' AND ps.shop_id = s.shop_id;"
-        result = self.query(query_shop)       
+        result = self.query(query_shop)
         shop_name = [result[n][0] for n in range(len(result))]
 
         # Select in marques table.
@@ -192,32 +209,41 @@ class Model:
         result = self.query(query_nutri)
         nut_type = result[0][0]
 
-        prod_infos = {'prod_id':prod_id, 'prod_name': nom, 'prod_url': url, 'prod_nut':nut_type, 'prod_shop': shop_name, 'prod_marq': marque_name }
+        prod_infos = {
+            "prod_id": prod_id,
+            "prod_name": nom,
+            "prod_url": url,
+            "prod_nut": nut_type,
+            "prod_shop": shop_name,
+            "prod_marq": marque_name,
+        }
 
         return self.sub_prod_infos(prod_infos)
-    
+
     def sub_prod_infos(self, prod_infos):
         """ I display the infos of a product. """
-        print(f"""
+        print(
+            f"""
             Nom du produit : {prod_infos['prod_name']}
             Nutriscore : {prod_infos['prod_nut']}
             Code du produit : {prod_infos['prod_id']}
             Lien vers sa page sur OpenFoodFacts : 
             {prod_infos['prod_url']} 
-        """)
+        """
+        )
 
-        self.view.display_text("====================") 
+        self.view.display_text("====================")
 
         self.view.display_text("C'est un produit :")
-        for marq in prod_infos['prod_marq']:
+        for marq in prod_infos["prod_marq"]:
             self.view.display_text(f"- {marq}")
 
         self.view.display_text("")
         self.view.display_text("Que vous pouvez trouver chez :")
-        for shop in prod_infos['prod_shop']:
+        for shop in prod_infos["prod_shop"]:
             self.view.display_text(f"- {shop}")
-        
-        self.view.display_text("====================") 
+
+        self.view.display_text("====================")
 
         return self.view.pause()
 
@@ -226,7 +252,7 @@ class Model:
     def query(self, query):
         """ I execute a request and return a result. """
         self.connection.execute(query)
-        return self.connection.fetchall() 
+        return self.connection.fetchall()
 
     def to_list_of_integer(self, l_o_t):
         """ Transform a list of tuple (l_o_t) to a list of integer (l_o_i) """
@@ -235,10 +261,10 @@ class Model:
         l_o_i = [int(i) for i in l_o_i]
 
         return l_o_i
-    
+
     def to_list_of_tuple(self, list_of_tuple, query, n):
-        """ Create the list of tuple and add the ranking """ 
-        value = self.query(query)      
+        """ Create the list of tuple and add the ranking """
+        value = self.query(query)
         value = value[0]
         rank = list(value)
         rank.append(n)
@@ -247,13 +273,12 @@ class Model:
 
         return list_of_tuple
 
+
 if __name__ == "__main__":
     model = Model()
 
     ### Tests of methods ###
     # print(model.cat_popular())
-    print(model.cat_options())
+    # print(model.cat_options())
     # model.product_list((4, 'eaux de sources', 6))
     # model.sub_options([(3268840001008, 'eau cristalline', 1), (7613036249928, 'eau minérale', 1), (3057640257773, 'eau minérale naturelle', 1), (8002270014901, 'eau minérale naturelle avec adjonction de gaz carbonique', 1), (7613035974685, 'hépar', 1)])
-    
-    
