@@ -131,6 +131,7 @@ class Main:
             self.views.header_front()
             prod_infos = self.model.product_infos(prod_id)
             self.model.sub_prod_infos(prod_infos)
+            self.views.pause()
             self.front_menu()
         elif option == "Q" or option == "q":
             sys.exit
