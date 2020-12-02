@@ -15,6 +15,7 @@ class Save:
         self.view = Views()
 
     def option_save(self):
+        """ I display the saving option. """
         option = input("\n              Sauvegarder ce substitut (o/n) ? : ")
 
         if option == "O" or option == "o":
@@ -87,7 +88,7 @@ class Save:
             return self.save_listing()
 
     def save_display(self, save_id):
-        """ """
+        """ I display the informations of a substitute saved. """
         query = f"SELECT * FROM sauvegardes WHERE save_id='{save_id}'"
         self.connection.execute(query)
         result = self.connection.fetchall()
@@ -97,6 +98,7 @@ class Save:
         self.model.sub_prod_infos(infos)
 
     def option_delete(self):
+        """ I display the delete save option. """
         option = input("\n              Effacer cette sauvegarde (o/n) ? : ")
 
         if option == "O" or option == "o":
