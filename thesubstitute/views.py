@@ -43,7 +43,7 @@ class Views:
     def main_choice(self):
         choice = input(
             """
-            A : Administrer les données OpenFoodFacts
+            A : Back-Office
             B : Front-Office
             Q : Exit
 
