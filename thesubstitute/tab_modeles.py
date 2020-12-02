@@ -1,5 +1,5 @@
 class ModCategories:
-    """ """
+    """ I'm categories. """
 
     def __init__(self):
         self.id_target = "cat_id"
@@ -8,7 +8,7 @@ class ModCategories:
 
 
 class ModMarques:
-    """ """
+    """ I'm marques. """
 
     def __init__(self):
         self.id_target = "marq_id"
@@ -17,7 +17,7 @@ class ModMarques:
 
 
 class ModShops:
-    """ """
+    """ I'm shops. """
 
     def __init__(self):
         self.id_target = "shop_id"
@@ -26,7 +26,7 @@ class ModShops:
 
 
 class ModProduits:
-    """ """
+    """ I'm produits. """
 
     def __init__(self):
         self.id_target = "prod_id"
