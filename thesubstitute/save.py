@@ -1,9 +1,9 @@
 import datetime
 import time
 
-from .connection import Connection
-from .model import Model
-from .views import Views
+from connection import Connection
+from model import Model
+from views import Views
 
 
 class Save:

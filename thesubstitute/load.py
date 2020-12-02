@@ -1,9 +1,9 @@
 import json
 from itertools import chain
 
-from .connection import Connection
-from .views import Views
-from .tab_modeles import ModProduits, ModCategories, ModMarques, ModShops
+from connection import Connection
+from views import Views
+from tab_modeles import ModProduits, ModCategories, ModMarques, ModShops
 
 
 class Load:
@@ -20,7 +20,7 @@ class Load:
     def open_json(self):
         """ I open the json. """
         with open(
-            "thesubstitute/off_data_transform.json", encoding="utf-8"
+            "off_data_transform.json", encoding="utf-8"
         ) as json_file:
             self.my_products = json.load(json_file)
 
@@ -175,3 +175,4 @@ if __name__ == "__main__":
     # === Tests of methods ===
     # loader.open_json()
     # loader.load_nutriscore()
+    loader.load_data()

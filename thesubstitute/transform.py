@@ -1,6 +1,6 @@
 import json
 
-from .views import Views
+from views import Views
 
 
 class Transform:
@@ -21,7 +21,7 @@ class Transform:
 
     def open_json(self):
         """ I open the extract json. """
-        with open("thesubstitute/off_data_extract.json", encoding="utf-8") as json_file:
+        with open("off_data_extract.json", encoding="utf-8") as json_file:
             self.data_extract = json.load(json_file)
 
     def transform_basic(self):
@@ -72,7 +72,7 @@ class Transform:
 
     def create_json(self, data_clean):
         """ I create the transform json. """
-        with open("thesubstitute/off_data_transform.json", "w") as fp:
+        with open("off_data_transform.json", "w") as fp:
             json.dump(data_clean, fp)
 
         self.views.display_text(
@@ -85,4 +85,4 @@ class Transform:
 if __name__ == "__main__":
     transform = Transform()
 
-    # transform.transform_basic()
+    transform.transform_basic()
