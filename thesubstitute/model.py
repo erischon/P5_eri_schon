@@ -9,6 +9,7 @@ class Model:
     """ """
 
     def __init__(self):
+        """ """
         self.view = Views()
         self.connection = Connection()
 
@@ -244,8 +245,6 @@ class Model:
             self.view.display_text(f"- {shop}")
 
         self.view.display_text("====================")
-
-        # return self.view.pause()
 
     ########## Methods ########## ########## ########## ##########
 
