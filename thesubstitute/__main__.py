@@ -139,12 +139,12 @@ class Main:
                     self.views.display_text("Ce substitut a été sauvegardé.")
             self.views.pause()
             self.front_menu()
-        elif option == '2':
+        elif option == "2":
             self.clear()
             self.views.header_front()
             save_id = self.save.save_listing()
-            if save_id == '0':
-                self.front_menu()                
+            if save_id == "0":
+                self.front_menu()
             self.clear()
             self.views.header_front()
             self.save.save_display(save_id)
