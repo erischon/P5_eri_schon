@@ -52,7 +52,7 @@ class Load:
             prod_to_load = self.my_products[prod_key]
 
             # Loading Products
-            if self.read_produits(prod_key) == False:
+            if self.read_produits(prod_key) is False:
                 nut_id = self.check_product(
                     "nut_id",
                     "nutriscore",
@@ -68,7 +68,7 @@ class Load:
 
             # Insert Categories in Tables : categories & prodcat
             for n in range(len(prod_to_load["categories"])):
-                if self.read_categorie(prod_to_load["categories"][n]) == False:
+                if self.read_categorie(prod_to_load["categories"][n]) is False:
                     add_categorie = f"INSERT INTO categories SET cat_nom='{prod_to_load['categories'][n]}'"
                     self.insert(add_categorie)
 
@@ -82,7 +82,7 @@ class Load:
 
             # Insert Marques in Tables : marques & prodmarq
             for n in range(len(prod_to_load["brands"])):
-                if self.read_marque(prod_to_load["brands"][n]) == False:
+                if self.read_marque(prod_to_load["brands"][n]) is False:
                     add_marque = f"INSERT INTO marques SET marq_nom='{prod_to_load['brands'][n]}'"
                     self.insert(add_marque)
 
@@ -96,7 +96,7 @@ class Load:
 
             # Insert Shops in Tables : shops & prodshop
             for n in range(len(prod_to_load["stores"])):
-                if self.read_shop(prod_to_load["stores"][n]) == False:
+                if self.read_shop(prod_to_load["stores"][n]) is False:
                     add_shop = (
                         f"INSERT INTO shops SET shop_nom='{prod_to_load['stores'][n]}'"
                     )
@@ -176,6 +176,6 @@ class Load:
 if __name__ == "__main__":
     loader = Load()
 
-    ### Tests of methods ###
+    # === Tests of methods ===
     # loader.open_json()
     # loader.load_nutriscore()
