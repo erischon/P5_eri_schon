@@ -29,7 +29,7 @@ class Save:
         """ I save the substitut into the sauvegardes table. """
         check = self._check(prod_id)
 
-        if check == False:
+        if check is False:
             try:
                 query = f"INSERT INTO sauvegardes SET save_time='{datetime.datetime.now()}', prod_id='{prod_id}'"
                 self.connection.execute(query)
@@ -133,7 +133,7 @@ class Save:
 if __name__ == "__main__":
     save = Save()
 
-    ### Tests of methods ###
+    # === Tests of methods ===
     # save.saving('3229820019307')
     # print(save._check('3229820019307'))
     # save.save_listing()
