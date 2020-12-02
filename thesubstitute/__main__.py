@@ -92,9 +92,12 @@ class Main:
         elif option == "7":
             self.clear()
             self.views.header_admin()
-            self.extraction.extract()
-            self.transform.transform_basic()
-            self.load.load_data()
+            extraction = Extract()
+            transform = Transform()
+            load = Load()
+            extraction.extract()
+            transform.transform_basic()
+            load.load_data()
             self.views.pause()
             self.admin_menu()
         elif option == "Q" or option == "q":
@@ -128,14 +131,14 @@ class Main:
             self.views.header_front()
             sub_list = self.model.sub_list(cat_id, prod)
             prod_id = self.model.sub_options(sub_list)
-            if prod_id == None:
+            if prod_id is None:
                 self.front_menu()
             self.clear()
             self.views.header_front()
             prod_infos = self.model.product_infos(prod_id)
             self.model.sub_prod_infos(prod_infos)
-            if self.save.option_save() == True:
-                if self.save.saving(prod_id) != False:
+            if self.save.option_save() is True:
+                if self.save.saving(prod_id) is not False:
                     self.views.display_text("Ce substitut a été sauvegardé.")
             self.views.pause()
             self.front_menu()
@@ -148,7 +151,7 @@ class Main:
             self.clear()
             self.views.header_front()
             self.save.save_display(save_id)
-            if self.save.option_delete() == True:
+            if self.save.option_delete() is True:
                 self.save.save_delete(save_id)
             self.views.pause()
             self.front_menu()
@@ -176,7 +179,7 @@ if __name__ == "__main__":
     main = Main()
     main.main_menu()
 
-    ### Tests of methods ###
+    # === Tests of methods ===
     # main.main_menu()
     # main.admin_menu()
     # main.front_menu()
