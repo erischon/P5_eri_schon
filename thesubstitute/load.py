@@ -37,11 +37,7 @@ class Load:
             )
 
         except:
-            self.views.display_text_error(
-                """
-            ECHEC Nutriscore : 
-            problème lors du chargement (mais rien de grave)."""
-            )
+            self.views.display_text_error("REUSSITE : Les Nutriscore étaient dans la base.")
 
     def load_data(self):
         """ I load all the data from json to their table. """
