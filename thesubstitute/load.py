@@ -19,7 +19,9 @@ class Load:
 
     def open_json(self):
         """ I open the json. """
-        with open("thesubstitute/off_data_transform.json", encoding="utf-8") as json_file:
+        with open(
+            "thesubstitute/off_data_transform.json", encoding="utf-8"
+        ) as json_file:
             self.my_products = json.load(json_file)
 
     def load_nutriscore(self):
