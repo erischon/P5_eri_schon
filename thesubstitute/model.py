@@ -1,5 +1,5 @@
 import time
-from itertools import chain
+# from itertools import chain
 
 from .views import Views
 from .connection import Connection
@@ -13,9 +13,9 @@ class Model:
         self.view = Views()
         self.connection = Connection()
 
-    #######################################
-    ###### Categories list of choice ######
-    #######################################
+    # =====================================
+    # ===== Categories list of choice =====
+    # =====================================
 
     def cat_popular(self):
         """ I return the list of the 10 most popular categories. """
@@ -67,9 +67,9 @@ class Model:
             time.sleep(2)
             return self.cat_options(cat_popular)
 
-    #####################################
-    ###### Products list of choice ######
-    #####################################
+    # ===================================
+    # ===== Products list of choice =====
+    # ===================================
 
     def product_list(self, category):
         """ I return the list of product for un categorie. """
@@ -123,9 +123,9 @@ class Model:
             time.sleep(2)
             return self.prod_options(prod_list)
 
-    ########################################
-    ###### Substitutes list of choice ######
-    ########################################
+    # ======================================
+    # ===== Substitutes list of choice =====
+    # ======================================
 
     def sub_list(self, cat_id, prod):
         """ I create a list of substitute for a product """
@@ -181,11 +181,11 @@ class Model:
             Merci de réessayer."""
             )
             time.sleep(2)
-            return self.prod_options(prod_list)
+            return self.prod_options(sub_list)
 
-    ###############################################
-    ###### Substitution product informations ######
-    ###############################################
+    # =============================================
+    # ===== Substitution product informations =====
+    # =============================================
 
     def product_infos(self, prod_id):
         """ I return all the infos for a product. """
@@ -246,7 +246,7 @@ class Model:
 
         self.view.display_text("====================")
 
-    ########## Methods ########## ########## ########## ##########
+    # ========== Methods ==========
 
     def query(self, query):
         """ I execute a request and return a result. """
@@ -276,7 +276,7 @@ class Model:
 if __name__ == "__main__":
     model = Model()
 
-    ### Tests of methods ###
+    # === Tests of methods ===
     # print(model.cat_popular())
     # print(model.cat_options())
     # model.product_list((4, 'eaux de sources', 6))
