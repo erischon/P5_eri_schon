@@ -20,12 +20,12 @@ class Transform:
         self.open_json()
 
     def open_json(self):
-        """ """
+        """ I open the extract json. """
         with open("thesubstitute/off_data_extract.json", encoding="utf-8") as json_file:
             self.data_extract = json.load(json_file)
 
     def transform_basic(self):
-        """ """
+        """ I take the fields I want from the extract json. """
         for n in range(len(self.data_extract["products"])):
 
             self.data_clean[
@@ -41,7 +41,7 @@ class Transform:
         self.transform_field(self.data_clean)
 
     def transform_field(self, data_clean):
-
+        """ I try to clean the data. """
         for code in data_clean:
             # Product
             data_clean[code]["product_name_fr"] = data_clean[code][
@@ -71,6 +71,7 @@ class Transform:
         self.create_json(data_clean)
 
     def create_json(self, data_clean):
+        """ I create the transform json. """
         with open("thesubstitute/off_data_transform.json", "w") as fp:
             json.dump(data_clean, fp)
 
