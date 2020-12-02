@@ -1,12 +1,12 @@
 import time
 
-from tables import Tables
-from views import Views
-from connection import Connection
+from .tables import Tables
+from .views import Views
+from .connection import Connection
 
 
 class Database:
-    """ """
+    """ I'm the database. """
 
     def __init__(self):
         """ """
@@ -16,7 +16,7 @@ class Database:
         self.view = Views()
 
     def db_create(self):
-        """ """
+        """ I create the database. """
         try:
             self.connection.execute(
                 "CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(
@@ -29,7 +29,7 @@ class Database:
             self.view.display_text_error("ECHEC : la base n'est pas crée.")
 
     def tables_create(self):
-        """ """
+        """ I create tables in the database. """
         for table_name in self.tables.TABLES:
             table_description = self.tables.TABLES[table_name]
 
@@ -43,7 +43,7 @@ class Database:
                 self.view.display_text_error("ECHEC : les tables ne sont pas crées.")
 
     def tables_delete(self):
-        """ """
+        """ I delete all the tables in the database. """
         self.connection.close()
         self.connection = Connection()
 
