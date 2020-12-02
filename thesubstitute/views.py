@@ -4,15 +4,6 @@ class Views:
     def __init__(self):
         pass
 
-    # def list_prod(self, cat_id):
-    #     """ I display the list of products. """
-
-    #     for n in range(len(self.requests.product_list(cat_id))):
-    #         print(f" {self.requests.product_list(cat_id)[n][2]+1} - {self.requests.product_list(cat_id)[n][1]}")
-
-    def menu_main(self):
-        pass
-
     def header(self):
         print(
             """
@@ -137,5 +128,3 @@ class Views:
 
 if __name__ == "__main__":
     view = Views()
-
-    # view.list_prod("11")
