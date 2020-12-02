@@ -115,28 +115,28 @@ class Load:
         )
 
     def read_categorie(self, value):
-        """ """
+        """ I search if the category is already in the table. """
         result = self.check_product(
             self.cat.id_target, self.cat.table_target, self.cat.column_target, value
         )
         return result
 
     def read_marque(self, value):
-        """ """
+        """  I search if the brand is already in the table.  """
         result = self.check_product(
             self.marq.id_target, self.marq.table_target, self.marq.column_target, value
         )
         return result
 
     def read_shop(self, value):
-        """ """
+        """  I search if the shop is already in the table. """
         result = self.check_product(
             self.shop.id_target, self.shop.table_target, self.shop.column_target, value
         )
         return result
 
     def read_produits(self, value):
-        """ """
+        """  I search if the product is already in the table. """
         result = self.check_product(
             self.prod.id_target, self.prod.table_target, self.prod.column_target, value
         )
@@ -163,7 +163,7 @@ class Load:
         self.connection.commit()
 
     def search_id(self, query):
-        """ """
+        """ I search an ID. """
         self.connection.execute(query)
         rows = self.connection.fetchall()
         return rows
