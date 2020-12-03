@@ -151,7 +151,7 @@ class Load:
             return int(result[0][0])
     
     def read_nutriscore(self, value):
-        """  I search if the product is already in the table. """
+        """  I search if the nutriscore is already in the table. """
         query = ("SELECT nut_id FROM nutriscore WHERE nut_type LIKE %s")
         self.connection.execute(query, (value,))
         result = self.connection.fetchall()
