@@ -20,7 +20,6 @@ class Extract:
             "page_size": 40,
             "page": 1,
             "sort_by": "unique_scans_n",
-            "fields": "generic_name_fr",
         }
 
         self.views = Views()
@@ -33,7 +32,7 @@ class Extract:
             )
             products = request.json()
 
-            with open("thesubstitute/off_data_extract.json", "w") as f:
+            with open("off_data_extract.json", "w") as f:
                 json.dump(products, f)
 
             self.views.display_text(
@@ -49,4 +48,4 @@ class Extract:
 if __name__ == "__main__":
     extract = Extract()
 
-    # extract.extract()
+    extract.extract()
