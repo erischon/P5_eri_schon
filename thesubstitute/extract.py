@@ -41,11 +41,12 @@ class Extract:
             {len(products['products'])} produits ont été téléchargés dans le fichier off_data_extract.json."""
             )
 
-        except:
-            print("erreur")
+        except Exception as error:
+            self.view.display_text_error("ECHEC : les produits ne sont pas téléchargés.", f"Type de l'erreur : {error}")
 
 
 if __name__ == "__main__":
     extract = Extract()
 
-    extract.extract()
+    # === Tests of methods ===
+    # extract.extract()
