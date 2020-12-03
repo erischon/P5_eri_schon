@@ -49,15 +49,13 @@ class Load:
 
             # Loading Products
             if self.read_produits(prod_key) is False:
-                nut_id = self.check_product(
-                    "nut_id",
-                    "nutriscore",
-                    "nut_type",
-                    prod_to_load["nutriscore_grade"][0],
-                )
-                add_product = f"INSERT INTO produits SET prod_id='{prod_key}', prod_nom='{prod_to_load['product_name_fr']}', prod_url='{prod_to_load['url']}', nut_id='{nut_id}'"
+                nut_id = self.read_nutriscore(prod_to_load["nutriscore_grade"][0])
+                # add_product = f"INSERT INTO produits SET prod_id='{prod_key}', prod_nom='{prod_to_load['product_name_fr']}', prod_url='{prod_to_load['url']}', nut_id='{nut_id}'"
+                add_product = ("INSERT INTO produits SET prod_id=%s, prod_nom=%s, prod_url=%s, nut_id=%s")
+                data_product = (prod_key, prod_to_load['product_name_fr'], prod_to_load['url'], nut_id)
 
-                self.insert(add_product)
+                self.connection.execute(add_product, data_product)
+                self.connection.commit()
 
             else:
                 pass
@@ -112,12 +110,22 @@ class Load:
             {len(self.my_products.keys())} produits sont entrés en base."""
         )
 
+    # def read_categorie(self, value):
+    #     """ I search if the category is already in the table. """
+    #     result = self.check_product(
+    #         self.cat.id_target, self.cat.table_target, self.cat.column_target, value
+    #     )
+    #     return result
+
     def read_categorie(self, value):
         """ I search if the category is already in the table. """
-        result = self.check_product(
-            self.cat.id_target, self.cat.table_target, self.cat.column_target, value
-        )
-        return result
+        query = ("SELECT cat_id FROM categories WHERE cat_nom LIKE %s")
+        self.connection.execute(query, (value,))
+        result = self.connection.fetchall()
+        if len(result) < 1:
+            return False
+        else:
+            return int(result[0][0])
 
     def read_marque(self, value):
         """  I search if the brand is already in the table.  """
@@ -133,12 +141,40 @@ class Load:
         )
         return result
 
+    # def read_produits(self, value):
+    #     """  I search if the product is already in the table. """
+    #     result = self.check_product(
+    #         self.prod.id_target, self.prod.table_target, self.prod.column_target, value
+    #     )
+    #     return result
+
     def read_produits(self, value):
         """  I search if the product is already in the table. """
-        result = self.check_product(
-            self.prod.id_target, self.prod.table_target, self.prod.column_target, value
-        )
-        return result
+        query = ("SELECT prod_id FROM produits WHERE prod_id LIKE '%s'")
+        # id = (int(value),)
+        self.connection.execute(query, (int(value),))
+        result = self.connection.fetchall()
+        # print(result)
+        if len(result) < 1:
+            return False
+        # elif len(result) > 1:
+        #     return print("Hum, something going wrong...")
+        else:
+            # for id in chain.from_iterable(result):
+            #     id2 = int(result[0][0])
+            #     print(id, id2)
+            return int(result[0][0])
+    
+    def read_nutriscore(self, value):
+        """  I search if the product is already in the table. """
+        query = ("SELECT nut_id FROM nutriscore WHERE nut_type LIKE %s")
+        self.connection.execute(query, (value,))
+        result = self.connection.fetchall()
+        if len(result) < 1:
+            return False
+        else:
+            return int(result[0][0])
+
 
     def check_product(self, id_target, table_target, column_target, product_target):
         """ I Check if a value is in a table, if yes I return its id """
