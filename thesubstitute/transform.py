@@ -44,19 +44,19 @@ class Transform:
         """ I try to clean the data. """
         for code in data_clean:
             # Product
-            data_clean[code]["product_name_fr"] = data_clean[code][
-                "product_name_fr"
-            ].replace("'", " ")
+            # data_clean[code]["product_name_fr"] = data_clean[code][
+            #     "product_name_fr"
+            # ].replace("'", " ")
 
             # Categories
             list_values = data_clean[code]["categories"].split(",")
             list_values = [value.strip(" ") for value in list_values]
             data_clean[code]["categories"] = list_values
 
-            for n in range(len(data_clean[code]["categories"])):
-                data_clean[code]["categories"][n] = data_clean[code]["categories"][
-                    n
-                ].replace("'", " ")
+            # for n in range(len(data_clean[code]["categories"])):
+            #     data_clean[code]["categories"][n] = data_clean[code]["categories"][
+            #         n
+            #     ].replace("'", " ")
 
             # Brands
             list_values = data_clean[code]["brands"].split(",")
