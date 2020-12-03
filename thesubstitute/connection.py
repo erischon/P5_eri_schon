@@ -53,13 +53,6 @@ class Connection:
     def fetchall(self):
         return self.cursor.fetchall()
 
-    # def fetchone(self):
-    #     return self.cursor.fetchone()
-
-    # def query(self, sql, params=None):
-    #     self.cursor.execute(sql, params or ())
-    #     return self.fetchall()
-
 
 if __name__ == "__main__":
     connection = Connection()
