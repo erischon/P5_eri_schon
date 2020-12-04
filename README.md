@@ -21,7 +21,7 @@ This project was built under the Creative Commons licence.
 
 ## Run the application 🪢
 
-python -m thesubstitute
+python thesubstitute
 
 ## Features 📋
 
