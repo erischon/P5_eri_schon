@@ -4,12 +4,12 @@
 
 # The Substitute 🍔
 
-Une application pour trouver un substitut à des produits alimentaires.
+Une application pour trouver des substituts à des produits alimentaires.
 
 ## Technologies 💻
 
-Python
-Mysql
+* Python
+* MySQL
 
 ## Author 🦉
 
