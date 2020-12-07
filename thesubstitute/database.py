@@ -1,8 +1,8 @@
 import time
 
-from .tables import Tables
-from .views import Views
-from .connection import Connection
+from tables import Tables
+from views import Views
+from connection import Connection
 
 
 class Database:
@@ -25,8 +25,8 @@ class Database:
             )
             self.view.display_text("REUSSITE : la base est crée.")
 
-        except:
-            self.view.display_text_error("ECHEC : la base n'est pas crée.")
+        except Exception as error:
+            self.view.display_text_error("ECHEC : la base n'est pas crée.", f"Type de l'erreur : {error}")
 
     def tables_create(self):
         """ I create tables in the database. """
@@ -39,13 +39,13 @@ class Database:
                     f"REUSSITE : la table {table_name.upper()} est active."
                 )
 
-            except:
-                self.view.display_text_error("ECHEC : les tables ne sont pas crées.")
+            except Exception as error:
+                self.view.display_text_error("ECHEC : les tables ne sont pas crées.", f"Type de l'erreur : {error}")
 
     def tables_delete(self):
         """ I delete all the tables in the database. """
-        self.connection.close()
-        self.connection = Connection()
+        # self.connection.close()
+        # self.connection = Connection()
 
         query = "SET FOREIGN_KEY_CHECKS = 0;"
         self.connection.execute(query)
@@ -60,16 +60,14 @@ class Database:
                 )
                 time.sleep(1)
 
-            except:
-                self.view.display_text_error(
-                    "ECHEC : problème lors du delete des tables"
-                )
+            except Exception as error:
+                self.view.display_text_error("ECHEC : problème lors du delete des tables", f"Type de l'erreur : {error}")
 
 
 if __name__ == "__main__":
     database = Database()
 
-    ### Tests of methods ###
+    # === Tests of methods ===
     # database.db_create()
     # database.tables_create()
-    # database.tables_delete()
+    database.tables_delete()

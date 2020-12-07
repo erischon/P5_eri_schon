@@ -1,7 +1,7 @@
 import requests
 import json
 
-from .views import Views
+from views import Views
 
 
 class Extract:
@@ -20,7 +20,6 @@ class Extract:
             "page_size": 40,
             "page": 1,
             "sort_by": "unique_scans_n",
-            "fields": "generic_name_fr",
         }
 
         self.views = Views()
@@ -33,7 +32,7 @@ class Extract:
             )
             products = request.json()
 
-            with open("thesubstitute/off_data_extract.json", "w") as f:
+            with open("off_data_extract.json", "w") as f:
                 json.dump(products, f)
 
             self.views.display_text(
@@ -42,11 +41,12 @@ class Extract:
             {len(products['products'])} produits ont été téléchargés dans le fichier off_data_extract.json."""
             )
 
-        except:
-            print("erreur")
+        except Exception as error:
+            self.view.display_text_error("ECHEC : les produits ne sont pas téléchargés.", f"Type de l'erreur : {error}")
 
 
 if __name__ == "__main__":
     extract = Extract()
 
+    # === Tests of methods ===
     # extract.extract()

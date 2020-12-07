@@ -21,7 +21,7 @@ This project was built under the Creative Commons licence.
 
 ## Run the application 🪢
 
-python -m thesubstitute
+python thesubstitute
 
 ## Features 📋
 
@@ -41,3 +41,6 @@ python -m thesubstitute
 * Sauvegarder le substitut
 * Effacer une sauvegarde
 
+## Divers 📝
+
+Lien Trello : https://trello.com/b/kLzxmG7o/oc-p5-thesubstitute

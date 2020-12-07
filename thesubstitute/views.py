@@ -34,8 +34,8 @@ class Views:
     def main_choice(self):
         choice = input(
             """
-            A : Back-Office
-            B : Front-Office
+            B : Back-Office
+            F : Front-Office
             Q : Exit
 
             Votre choix : """

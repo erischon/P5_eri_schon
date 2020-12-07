@@ -1,6 +1,6 @@
 import json
 
-from .views import Views
+from views import Views
 
 
 class Transform:
@@ -21,7 +21,7 @@ class Transform:
 
     def open_json(self):
         """ I open the extract json. """
-        with open("thesubstitute/off_data_extract.json", encoding="utf-8") as json_file:
+        with open("off_data_extract.json", encoding="utf-8") as json_file:
             self.data_extract = json.load(json_file)
 
     def transform_basic(self):
@@ -43,20 +43,10 @@ class Transform:
     def transform_field(self, data_clean):
         """ I try to clean the data. """
         for code in data_clean:
-            # Product
-            data_clean[code]["product_name_fr"] = data_clean[code][
-                "product_name_fr"
-            ].replace("'", " ")
-
             # Categories
             list_values = data_clean[code]["categories"].split(",")
             list_values = [value.strip(" ") for value in list_values]
             data_clean[code]["categories"] = list_values
-
-            for n in range(len(data_clean[code]["categories"])):
-                data_clean[code]["categories"][n] = data_clean[code]["categories"][
-                    n
-                ].replace("'", " ")
 
             # Brands
             list_values = data_clean[code]["brands"].split(",")
@@ -72,7 +62,7 @@ class Transform:
 
     def create_json(self, data_clean):
         """ I create the transform json. """
-        with open("thesubstitute/off_data_transform.json", "w") as fp:
+        with open("off_data_transform.json", "w") as fp:
             json.dump(data_clean, fp)
 
         self.views.display_text(
@@ -85,4 +75,4 @@ class Transform:
 if __name__ == "__main__":
     transform = Transform()
 
-    # transform.transform_basic()
+    transform.transform_basic()
