@@ -41,6 +41,6 @@ python thesubstitute
 * Sauvegarder le substitut
 * Effacer une sauvegarde
 
-## Divers
+## Divers 📝
 
 Lien Trello : https://trello.com/b/kLzxmG7o/oc-p5-thesubstitute
