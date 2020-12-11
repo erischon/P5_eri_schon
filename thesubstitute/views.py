@@ -68,7 +68,6 @@ class Views:
             5 : Transform
             6 : Load
             7 : Extract / Transform / Load
-            Q : Exit
 
             Votre choix : """
         )
@@ -81,7 +80,6 @@ class Views:
             0 : Menu principal
             1 : Chercher un substitut
             2 : Vos substituts sauvegardés
-            Q : Exit
 
             Votre choix : """
         )
@@ -98,8 +96,6 @@ class Views:
             4 : Extract
             5 : Transform
             6 : Load
-            7 : Extract / Transform / Load
-            Q : Exit
 
             Votre choix : """
         )
