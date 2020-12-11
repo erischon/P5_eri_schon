@@ -1,8 +1,8 @@
 import time
 
-from .tables import Tables
-from .views import Views
-from .connection import Connection
+from tables import Tables
+from views import Views
+from connection import Connection
 
 
 class Database:
