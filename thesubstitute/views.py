@@ -61,13 +61,11 @@ class Views:
         menu = input(
             f"""
             0 : Menu principal
-            1 : Créer la base de données
             2 : Créer les tables
             3 : Effacer toutes les tables
             4 : Extract
             5 : Transform
             6 : Load
-            7 : Extract / Transform / Load
 
             Votre choix : """
         )
