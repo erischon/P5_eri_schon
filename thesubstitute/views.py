@@ -61,6 +61,7 @@ class Views:
         menu = input(
             f"""
             0 : Menu principal
+            1 : Créer la base de données (à venir)
             2 : Créer les tables
             3 : Effacer toutes les tables
             4 : Extract
