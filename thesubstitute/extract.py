@@ -1,7 +1,7 @@
 import requests
 import json
 
-from views import Views
+from .views import Views
 
 
 class Extract:
@@ -32,7 +32,7 @@ class Extract:
             )
             products = request.json()
 
-            with open("off_data_extract.json", "w") as f:
+            with open("thesubstitute/off_data_extract.json", "w") as f:
                 json.dump(products, f)
 
             self.views.display_text(
