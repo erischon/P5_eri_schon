@@ -1,6 +1,6 @@
 import json
 
-from .views import Views
+from views import Views
 
 
 class Transform:
