@@ -25,7 +25,7 @@ Vous devez avoir un serveur Mysql actif ainsi que les droits pour l'utiliser.
 
 ## Run the application 🪢
 
-python thesubstitute
+python -m thesubstitute
 
 ## Features 📋
 
