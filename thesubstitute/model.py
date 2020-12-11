@@ -1,8 +1,8 @@
 import time
 # from itertools import chain
 
-from .views import Views
-from .connection import Connection
+from views import Views
+from connection import Connection
 
 
 class Model:
