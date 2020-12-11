@@ -1,6 +1,6 @@
 import mysql.connector
 
-from config import *
+from .config import *
 
 
 class Connection:
