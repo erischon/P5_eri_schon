@@ -1,6 +1,6 @@
 import mysql.connector
 
-from .config import *
+from config import *
 
 
 class Connection:
@@ -11,7 +11,7 @@ class Connection:
         self._host = HOST
         self._user = USER
         self._password = PASSWORD
-        self.db_name = "PureBeurre"
+        self.db_name = DB_NAME
 
         self._connect = self.db_connection()
         self._cursor = self._connect.cursor()
