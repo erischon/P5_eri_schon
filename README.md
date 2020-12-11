@@ -21,11 +21,17 @@ This project was built under the Creative Commons licence.
 
 ## Requirements 
 
-Vous devez avoir un serveur Mysql actif ainsi que les droits pour l'utiliser. 
+Vous devez avoir un serveur Mysql actif ainsi que les droits pour l'utiliser.
+
+Vous avez besoin d'une Database vide.
+
+Le fichier config.py doit être modifié suivant vos besoins.
+
+Pour le reste vous pouvez consulter le fichier requirements.txt
 
 ## Run the application 🪢
 
-python -m thesubstitute
+python thesubstitute
 
 ## Features 📋
 
