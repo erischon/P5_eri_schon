@@ -19,6 +19,10 @@ Eri Schön
 
 This project was built under the Creative Commons licence.
 
+## Requirements 
+
+Vous devez avoir un serveur Mysql actif ainsi que les droits pour l'utiliser. 
+
 ## Run the application 🪢
 
 python thesubstitute
