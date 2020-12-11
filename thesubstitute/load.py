@@ -1,8 +1,8 @@
 import json
 from itertools import chain
 
-from connection import Connection
-from views import Views
+from .connection import Connection
+from .views import Views
 
 
 class Load:
@@ -15,7 +15,7 @@ class Load:
     def open_json(self):
         """ I open the json. """
         with open(
-            "off_data_transform.json", encoding="utf-8"
+            "thesubstitute/off_data_transform.json", encoding="utf-8"
         ) as json_file:
             self.my_products = json.load(json_file)
 
