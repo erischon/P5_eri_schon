@@ -1,8 +1,8 @@
 import json
 from itertools import chain
 
-from .connection import Connection
-from .views import Views
+from connection import Connection
+from views import Views
 
 
 class Load:
