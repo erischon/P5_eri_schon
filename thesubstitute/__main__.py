@@ -2,13 +2,13 @@ import sys
 import time
 from os import system, name
 
-from views import Views
-from extract import Extract
-from transform import Transform
-from load import Load
-from database import Database
-from model import Model
-from save import Save
+from .views import Views
+from .extract import Extract
+from .transform import Transform
+from .load import Load
+from .database import Database
+from .model import Model
+from .save import Save
 
 
 class Main:
