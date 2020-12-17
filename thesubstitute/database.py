@@ -70,4 +70,4 @@ if __name__ == "__main__":
     # === Tests of methods ===
     # database.db_create()
     # database.tables_create()
-    database.tables_delete()
+    # database.tables_delete()
