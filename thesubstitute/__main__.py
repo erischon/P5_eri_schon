@@ -48,7 +48,7 @@ class Main:
 
         if option == "0":
             self.main_menu()
-        if option == "1":
+        elif option == "1":
             self.clear()
             self.views.header_admin()
             self.db.db_create()
@@ -117,7 +117,7 @@ class Main:
 
         if option == "0":
             self.main_menu()
-        if option == "1":
+        elif option == "1":
             cat = self.fos_s1()
             cat_id, prod = self.fos_s2(cat)
             prod_id = self.fos_s3(cat_id, prod)
