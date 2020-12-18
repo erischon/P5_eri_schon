@@ -29,7 +29,7 @@ class Main:
 
         if choice == "b":
             self.back_menu()
-        if choice == "f":
+        elif choice == "f":
             self.front_menu()
         elif choice == "q":
             sys.exit
